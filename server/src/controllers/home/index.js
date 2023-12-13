@@ -39,15 +39,14 @@ const indexController = {
   },
   sameAuthorProducts: async (req, res) => {
     try {
-      const author = req.params.author
-      console.log(author);
-      const query = {
-        $or: [{ author: { $regex: author, $options: "i" } }],
-      };
+      const slug = req.params.author
+      const cate = await categoriesModel.findOne({ slug: slug });
 
-      const products = await productModel
-        .find(query)
-        .collation({ locale: "vi", strength: 2 });
+      products = await productModel
+      .find({ categories: cate._id })
+      .skip(1)
+      .limit(5);
+
 
       return res.status(200).json({ status: true, products });
     } catch (error) {

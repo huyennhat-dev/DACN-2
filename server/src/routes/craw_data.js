@@ -1,140 +1,12 @@
 const router = require("express").Router();
 const cheerio = require("cheerio");
-const request = require("request-promise");
+const axios = require("axios");
 const slug = require("slug");
 
 const { categoriesModel } = require("../models/categories");
 const { random } = require("lodash");
 const { productModel } = require("../models/product");
 const { adminModel } = require("../models/admin");
-
-// router.post("/", async (req, res) => {
-//   const { url, categories } = req.body;
-
-//   const cateSlug = slug(categories);
-
-//   let category;
-
-//   category = await categoriesModel.findOne({ slug: cateSlug });
-
-//   if (!category) {
-//     category = await categoriesModel.create({
-//       name: categories,
-//       slug: cateSlug,
-//       status: "645d30d2eb6f40e2906325fa",
-//     });
-//   }
-
-//   request(url, (error, response, html) => {
-//     if (!error && response.statusCode == 200) {
-//       const $ = cheerio.load(html);
-//       const data = [];
-
-//       const itemUrls = [];
-
-//       $(
-//         ".ProductList__NewWrapper-sc-1dl80l2-0.jXFjHV div a.product-item "
-//       ).each((index, el) => {
-//         const bookUrl = "https:" + $(el).attr("href");
-//         itemUrls.push(bookUrl);
-//       });
-//       let completedRequests = 0;
-
-//       itemUrls.forEach((bookUrl) => {
-//         request(bookUrl, async (error, response, html) => {
-//           if (!error && response.statusCode == 200) {
-//             const $ = cheerio.load(html);
-//             const name = $(
-//               ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .header h1.title"
-//             )
-//               .text()
-//               .trim();
-//             const author =
-//               $(
-//                 ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .header .brand h6 a"
-//               )
-//                 .text()
-//                 .trim() || "Nhiều Tác Giả";
-//             const photo = $(
-//               ".style__ProductImagesStyle-sc-1fmads3-0.fymfgs .group-images img"
-//             ).attr("src");
-//             const price =
-//               parseInt(
-//                 $(
-//                   ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .body .left .style__StyledProductPrice-sc-15mbtqi-0.hlBZfh div.product-price__list-price"
-//                 )
-//                   .text()
-//                   .trim()
-//                   .replace(/\D/g, "")
-//               ) ||
-//               parseInt(
-//                 $(
-//                   ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .body .left .style__StyledProductPrice-sc-15mbtqi-0.hlBZfh div.product-price__current-price"
-//                 )
-//                   .text()
-//                   .trim()
-//                   .replace(/\D/g, "")
-//               ) ||
-//               100000;
-//             const sale =
-//               parseInt(
-//                 $(
-//                   ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .body .left .style__StyledProductPrice-sc-15mbtqi-0.hlBZfh div.product-price__discount-rate"
-//                 )
-//                   .text()
-//                   .trim()
-//                   .replace(/\D/g, "")
-//               ) / 100 || 0.0;
-
-//             const description = $(
-//               ".style__Wrapper-sc-12gwspu-0.cIWQHl .left .group .content .ToggleContent__Wrapper-sc-1dbmfaw-1.cqXrJr"
-//             )
-//               .html()
-//               .trim();
-
-//             const quantity = random(10, 100);
-//             const categories = category._id;
-//             const status = "645d30d2eb6f40e2906325fa";
-//             const extraPerson = "645fd0b6b9c84aa81c7d5a02";
-
-//             const product = await productModel.create({
-//               name,
-//               photos: [photo],
-//               author,
-//               price,
-//               quantity,
-//               sale,
-//               description,
-//               categories,
-//               status,
-//               extraPerson,
-//             });
-
-//             await categoriesModel.updateOne(
-//               { _id: category._id },
-//               { $push: { products: product._id } }
-//             );
-//             await adminModel.updateOne(
-//               { _id: extraPerson },
-//               { $push: { products: product._id } }
-//             );
-//           } else {
-//             console.log(error);
-//           }
-
-//           completedRequests++;
-
-//           if (completedRequests == itemUrls.length) {
-//             return res.json("success");
-//           }
-//         });
-//       });
-//     } else {
-//       console.log(error);
-//     }
-//   });
-// });
-
 
 router.post("/", async (req, res) => {
   const { url, categories } = req.body;
@@ -153,114 +25,97 @@ router.post("/", async (req, res) => {
     });
   }
 
-  request(url, (error, response, html) => {
-    if (!error && response.statusCode == 200) {
-      const $ = cheerio.load(html);
-      const data = [];
+  try {
+    const response = await axios.get(url);
+    const $ = cheerio.load(response.data);
+    const data = [];
 
-      const itemUrls = [];
+    const itemUrls = [];
 
-      $(
-        "#main .category-page-row .col.large-12 .shop-container .products .product .box-image .image-fade_in_back a"
-      ).each((index, el) => {
-        const bookUrl =  $(el).attr("href");
-        itemUrls.push(bookUrl);
+    $(
+      "#main .category-page-row .col.large-12 .shop-container .products .product .box-image .image-fade_in_back a"
+    ).each((index, el) => {
+      const itemUrl = $(el).attr("href");
+      itemUrls.push(itemUrl);
+    });
+
+    let completedRequests = 1;
+    console.log(itemUrls);
+
+    for (let i = 1; i <= itemUrls.length; i++) {
+      const res = await axios.get(itemUrls[i]);
+      const $$ = cheerio.load(res.data);
+
+      const name = $$(".product-container .product-info h1.product-title")
+        .text()
+        .trim();
+
+      const photo = $$(
+        ".product-container .product-gallery .woocommerce-product-gallery img"
+      ).attr("src");
+
+      const price = parseInt(
+        $$(".product-container .product-info .product-page-price bdi")
+          .first()
+          .text()
+          .trim()
+          .replace(/\D/g, "") || 10000,
+        10
+      );
+
+      const sale = (Math.random() * 0.15).toFixed(2);
+      const purchases = random(10,100)
+
+      const sortDesc = $$(
+        ".product-container .product-info .product-short-description"
+      )
+        .html()
+        .trim();
+
+      const desc = $$(
+        ".product-container .product-page-accordian .accordion-inner"
+      )
+        .html()
+        .trim();
+
+      const quantity = random(10, 100);
+      const categories = category._id;
+      const status = "645d30d2eb6f40e2906325fa";
+      const extraPerson = "645fd0b6b9c84aa81c7d5a02";
+
+      const product = await productModel.create({
+        name,
+        photos: [photo],
+        author: sortDesc,
+        price,
+        quantity,
+        sale,
+        purchases,
+        description: desc,
+        categories,
+        status,
+        extraPerson,
       });
-      let completedRequests = 0;
 
-      itemUrls.forEach((bookUrl) => {
-        request(bookUrl, async (error, response, html) => {
-          if (!error && response.statusCode == 200) {
-            const $ = cheerio.load(html);
-            const name = $(
-              ".product-container .product-info h1.product-title"
-            )
-              .text()
-              .trim();
-            const author =
-              $(
-                ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .header .brand h6 a"
-              )
-                .text()
-                .trim() || "Nhiều Tác Giả";
-            const photo = $(
-              ".style__ProductImagesStyle-sc-1fmads3-0.fymfgs .group-images img"
-            ).attr("src");
-            const price =
-              parseInt(
-                $(
-                  ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .body .left .style__StyledProductPrice-sc-15mbtqi-0.hlBZfh div.product-price__list-price"
-                )
-                  .text()
-                  .trim()
-                  .replace(/\D/g, "")
-              ) ||
-              parseInt(
-                $(
-                  ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .body .left .style__StyledProductPrice-sc-15mbtqi-0.hlBZfh div.product-price__current-price"
-                )
-                  .text()
-                  .trim()
-                  .replace(/\D/g, "")
-              ) ||
-              100000;
-            const sale =
-              parseInt(
-                $(
-                  ".styles__Wrapper-sc-8ftkqd-0.eypWKn .styles__StyledProductContent-sc-1f8f774-0.ewqXRk .body .left .style__StyledProductPrice-sc-15mbtqi-0.hlBZfh div.product-price__discount-rate"
-                )
-                  .text()
-                  .trim()
-                  .replace(/\D/g, "")
-              ) / 100 || 0.0;
+      await categoriesModel.updateOne(
+        { _id: category._id },
+        { $push: { products: product._id } }
+      );
+      await adminModel.updateOne(
+        { _id: extraPerson },
+        { $push: { products: product._id } }
+      );
 
-            const description = $(
-              ".style__Wrapper-sc-12gwspu-0.cIWQHl .left .group .content .ToggleContent__Wrapper-sc-1dbmfaw-1.cqXrJr"
-            )
-              .html()
-              .trim();
+      console.log("Crawl success: " + completedRequests);
 
-            const quantity = random(10, 100);
-            const categories = category._id;
-            const status = "645d30d2eb6f40e2906325fa";
-            const extraPerson = "645fd0b6b9c84aa81c7d5a02";
-
-            const product = await productModel.create({
-              name,
-              photos: [photo],
-              author,
-              price,
-              quantity,
-              sale,
-              description,
-              categories,
-              status,
-              extraPerson,
-            });
-
-            await categoriesModel.updateOne(
-              { _id: category._id },
-              { $push: { products: product._id } }
-            );
-            await adminModel.updateOne(
-              { _id: extraPerson },
-              { $push: { products: product._id } }
-            );
-          } else {
-            console.log(error);
-          }
-
-          completedRequests++;
-
-          if (completedRequests == itemUrls.length) {
-            return res.json("success");
-          }
-        });
-      });
-    } else {
-      console.log(error);
+      if (completedRequests == 20) {
+        return res.json("success");
+      }
+      completedRequests++;
     }
-  });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.put("/update", async (req, res) => {
@@ -272,7 +127,7 @@ router.put("/update", async (req, res) => {
       },
     }
   );
-  return res.json("ok")
+  return res.json("ok");
 });
 
 module.exports = router;

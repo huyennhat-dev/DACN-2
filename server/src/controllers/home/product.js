@@ -32,7 +32,6 @@ const productController = {
     const startIndex = (page - 1) * pageSize || 1;
 
     const cate = await categoriesModel.findOne({ slug: slug });
-    console.log(cate);
     const totalCount = await productModel.countDocuments({
       categories: cate._id,
     });

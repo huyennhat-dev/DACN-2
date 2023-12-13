@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema(
       max: 100,
     },
     photos: [{ type: String, required: true }],
-    author: { type: String, required: true, min: 1, max: 100 },
+    author: { type: String,  min: 1, max: 100 },
     price: { type: Number, required: true, min: 0 },
     quantity: { type: Number, required: true, min: 0 },
     purchases: { type: Number, min: 0, default: 0 },
