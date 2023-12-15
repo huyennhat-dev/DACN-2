@@ -23,11 +23,12 @@
           <MDBCol md="3" lg="4" xl="3" class="mx-auto mb-4">
             <!-- Content -->
             <h6 class="text-uppercase fw-bold mb-4">
-              Mê truyện chữ
+              Shop Pet
             </h6>
             <p>
-              Gặp được một quyển sách hay nên mua liền dù đọc được hay không đọc được, vì sớm muộn gì cũng cần đến nó.
-              Hãy đến với chúng tôi, tâm hồn bạn sẽ được chữa lành. Mê truyện chữ, nơi dẫn lối bạn.
+              Tìm bạn đồng hành đáng yêu cho gia đình của bạn! 
+              Dòng thú cưng của chúng tôi mang lại niềm vui, tình cảm và sự trung thành. 
+              Luôn chia sẻ tình yêu và kỷ niệm không ngừng, sẵn sàng tạo nên những khoảnh khắc đáng nhớ trong cuộc sống của bạn.
             </p>
           </MDBCol>
           <!-- Grid column -->
@@ -36,16 +37,16 @@
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Sản phẩm</h6>
             <p>
-              <a href="#!" class="text-reset">Sách công nghệ thông tin</a>
+              <a href="#!" class="text-reset">Chó Poodle</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Sách khoa học - kỹ thuật</a>
+              <a href="#!" class="text-reset">Mèo Anh Lông Ngắn</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Sách kỹ năng sống</a>
+              <a href="#!" class="text-reset">Chó Chihuahua</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Sách thể dục thể thao</a>
+              <a href="#!" class="text-reset">Mèo Maine Coon</a>
             </p>
           </MDBCol>
           <!-- Grid column -->
@@ -76,7 +77,7 @@
             </p>
             <p>
               <i class="fas fa-envelope me-3"></i>
-              Metruyenchu@gmail.com
+              Shoplovepet@gmail.com
             </p>
             <p>
               <MDBIcon icon="phone" class="me-3" /> + 84 987456876
