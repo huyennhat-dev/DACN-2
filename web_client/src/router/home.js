@@ -40,6 +40,11 @@ const home = [
         component: () => import("../pages/home/checkout/error.vue"),
       },
       {
+        path: "contact",
+        name: "contact",
+        component: () => import("../pages/home/contact/contact.vue"),
+      },
+      {
         path: "order",
         name: "order",
         component: () => import("../pages/home/order/index.vue"),
@@ -55,7 +60,7 @@ const home = [
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: () => import("../pages/404.vue"),
-  },
+  },  
 ];
 
 export default home;
