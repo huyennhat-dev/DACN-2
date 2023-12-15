@@ -15,10 +15,10 @@
         </div>
 
         <div class="row">
-          <the-list-product :title="'Sách mới nhất'" :products="newProducts" />
+          <the-list-product :title="'Thú cưng mới nhất'" :products="newProducts" />
         </div>
         <div class="row">
-          <the-list-product :title="'Sách bán chạy'" :products="saleProducts" />
+          <the-list-product :title="'Thú cưng bán chạy'" :products="saleProducts" />
         </div>
       </div>
     </div>

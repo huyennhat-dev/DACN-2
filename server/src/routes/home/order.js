@@ -6,7 +6,7 @@ const router = require("express").Router();
 router.post("/create-url", authjwt, orderController.createUrl);
 router.get("/vnpay-return", orderController.vnpRs);
 
-router.get("/user-order", authjwt,orderController.showOrderByUser);
-
+router.get("/user-order", authjwt, orderController.showOrderByUser);
+router.put("/update/:id", authjwt, orderController.update);
 
 module.exports = router;

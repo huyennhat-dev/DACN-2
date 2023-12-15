@@ -6,12 +6,12 @@
           <div>
             <div class="d-none d-sm-block logo text-center">
               <router-link :to="{ name: 'index' }">
-                <img class="" src="../../assets/images/logo.png" alt="" />
+                <img class="" src="../../assets/images/logo_2.png" alt="" />
               </router-link>
             </div>
             <div class="d-sm-none d-block logo text-center">
               <router-link :to="{ name: 'index' }">
-                <img class="" src="../../assets/images/logo_2.png" alt="" />
+                <img class="" src="../../assets/images/logo.png" alt="" />
               </router-link>
             </div>
           </div>
@@ -97,7 +97,7 @@
               >
                 <shopping-outlined class="button-icon me-1" />
                 <span class="d-none d-sm-block cart-button-title"> Giỏ hàng</span>
-                <div v-if="carts.length > 0" class="count-cart">
+                <div v-if="carts?.length > 0" class="count-cart">
                   {{ carts.length > 99 ? "+99" : carts.length }}
                 </div>
               </li>

@@ -102,11 +102,13 @@ export const useCartStore = defineStore("cart", {
     },
     handleTotalPrice() {
       this.totalPrice = 0;
-      for (const cart of this.carts) {
-        const price =
-          (cart.product.price - cart.product.price * cart.product.sale) *
-          cart.quantity;
-        this.totalPrice += price;
+      if (this.carts?.length > 0) {
+        for (const cart of this.carts) {
+          const price =
+            (cart.product.price - cart.product.price * cart.product.sale) *
+            cart.quantity;
+          this.totalPrice += price;
+        }
       }
     },
   },

@@ -33,7 +33,7 @@ export const useAdminAuthStore = defineStore("adminAuth", {
     logout() {
       this.token = null;
       this.isLoggedIn = false;
-      localStorage.clear();
+      localStorage.removeItem("aToken");
     },
   },
 });

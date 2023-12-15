@@ -8,13 +8,9 @@
         p-4
         border-bottom
       " id="footer">
-      <!-- Left -->
-      <!-- Left -->
-      <!-- Right -->
-      <!-- Right -->
+
     </section>
-    <!-- Section: Social media -->
-    <!-- Section: Links  -->
+
     <section class=""  id="mtc">
       <MDBContainer class="text-center text-md-start mt-5">
         <!-- Grid row -->
@@ -30,8 +26,7 @@
               Hãy đến với chúng tôi, tâm hồn bạn sẽ được chữa lành. Mê truyện chữ, nơi dẫn lối bạn.
             </p>
           </MDBCol>
-          <!-- Grid column -->
-          <!-- Grid column -->
+    
           <MDBCol md="2" lg="2" xl="2" class="mx-auto mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Sản phẩm</h6>
@@ -90,13 +85,7 @@
         <!-- Grid row -->
       </MDBContainer>
     </section>
-    <!-- Section: Links  -->
-    <!-- Copyright -->
-    <!-- <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)"> -->
-      <!-- © 2023 Copyright -->
-      <!-- <a class="text-reset fw-bold" href="https://www.facebook.com/huyennhat.dev">Facebook Me Truyen Chu</a> -->
-    <!-- </div> -->
-    <!-- Copyright -->
+
   </MDBFooter>
   <!-- Footer -->
 </template>

@@ -68,7 +68,7 @@ const authController = {
   },
   register: async (req, res) => {
     try {
-      const { name, email, password ,photo} = req.body;
+      const { name, email, password, photo } = req.body;
 
       const data = await userModel.findOne({ email }).populate("status");
 
@@ -76,13 +76,13 @@ const authController = {
         const status = await statusModel.findOne({ slug: "hoat-dong" });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword)
+        console.log(hashedPassword);
 
         const user = await userModel.create({
           email,
           name,
           photo,
-          password: hashedPassword, 
+          password: hashedPassword,
           status: status._id,
         });
 
@@ -149,12 +149,9 @@ const authController = {
             );
           }
 
-          const rs = await cloudinary.uploader.upload(
-            "data:image/png;base64," + data.photo,
-            {
-              folder: "images/users",
-            }
-          );
+          const rs = await cloudinary.uploader.upload(data.photo, {
+            folder: "images/users",
+          });
 
           data.photo = rs.url;
         }

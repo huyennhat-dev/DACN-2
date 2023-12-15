@@ -39,7 +39,7 @@ export const useAuthStore = defineStore("uAuth", {
       this.token = null;
       this.isLoggedIn = false;
       useCartStore().carts = [];
-      localStorage.clear();
+      localStorage.removeItem("uToken");
     },
   },
 });

@@ -1,12 +1,9 @@
 <template>
   <div v-if="product" class="product position-relative brr-10">
-    <router-link
-      :to="{ name: 'detail', params: { id: product._id } }"
-      style="cursor: pointer"
-    >
+    <router-link :to="{ name: 'detail', params: { id: product._id } }" :key="product._id" style="cursor: pointer">
       <div class="product-body">
         <div class="product-image">
-          <img :src="product.photos[0]" alt="" class="square"/>
+          <img :src="product.photos[0]" alt="" class="square" />
         </div>
         <div class="product-content">
           <div class="product-name">
@@ -49,11 +46,7 @@
         Giảm giá &nbsp;
         <span>{{ (product.sale * 100).toFixed(0) }}%</span>
       </div>
-      <a-button
-        danger
-        class="preview-button brr-5 w-100 my-2"
-        @click="addToCartStore(product, 1)"
-      >
+      <a-button danger class="preview-button brr-5 w-100 my-2" @click="addToCartStore(product, 1)">
         <shopping-outlined />
         Thêm vào giỏ hàng
       </a-button>
@@ -87,26 +80,31 @@ export default defineComponent({
   props: {
     product: Object,
   },
+
   methods: {
     fomated(price) {
       if (price) return formattedPrice(price);
     },
 
+
     async addToCartStore(product, quantity) {
       try {
         if (!product) return;
-        delete product.description;
-        const res = await useCartStore().addToCart(product, quantity);
+        const productWithoutDescription = { ...product };
+        delete productWithoutDescription.description;
+        const res = await useCartStore().addToCart(productWithoutDescription, quantity);
         if (res)
           notification.success({
             description: "Thêm vào giỏ hàng thành công",
             duration: 3,
           });
-        else
+        else {
+          this.$emit("handleClickToggleLoginModal");
           notification.warning({
             description: "Bạn cần phải đăng nhập",
             duration: 3,
           });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -122,6 +120,7 @@ export default defineComponent({
   align-items: center;
   min-height: 200px;
 }
+
 .product .product-body {
   width: 100%;
   height: 100%;
@@ -138,18 +137,22 @@ export default defineComponent({
   border-radius: 10px;
   transition: all 0.2s;
 }
+
 .product .product-image {
   border-radius: 10px;
   padding: 5px;
   transition: all 0.2s;
 }
+
 .product .product-image img {
   width: 100%;
-  border-radius:5px;
+  border-radius: 5px;
 }
+
 .product .product-content {
   padding: 10px 10px 15px 10px;
 }
+
 .product .product-name {
   height: 41px;
   color: #000;
@@ -163,18 +166,22 @@ export default defineComponent({
   text-overflow: ellipsis;
   max-width: 150px;
 }
+
 .product .product-rating {
   font-size: 12px;
   font-weight: 600;
 }
+
 .product .product-price {
   font-size: 18px;
   font-weight: 600;
 }
+
 .product .product-sale {
   font-size: 14px;
   font-weight: 500;
 }
+
 .product .product-preview::after {
   content: "";
   width: 30px;
@@ -186,6 +193,7 @@ export default defineComponent({
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 }
+
 .product .product-preview {
   position: absolute;
   height: auto;
@@ -227,11 +235,13 @@ export default defineComponent({
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .product .product-preview .preview-author {
   font-size: 11px;
   font-weight: 400;
   color: green;
 }
+
 .product .product-preview .preview-desc,
 .product .product-preview .preview-desc strong,
 .product .product-preview .preview-desc ul,
@@ -250,14 +260,17 @@ export default defineComponent({
   max-height: 110px;
   padding: 0;
 }
+
 .product .product-preview .preview-desc .table,
 .product .product-preview .preview-desc a {
   display: none;
 }
+
 .product .product-preview .preview-price {
   font-size: 16px;
   font-weight: 600;
 }
+
 .product .product-preview .preview-price-sale {
   font-size: 12px;
   font-weight: 400;
@@ -268,6 +281,7 @@ export default defineComponent({
   font-weight: 600;
   font-size: 12px;
 }
+
 .product .product-preview .preview-sale span {
   font-size: 14px;
 }

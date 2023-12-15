@@ -42,7 +42,9 @@
                       <img
                         :src="item.product.photos[0]"
                         class="brr-2"
-                        width="90"
+                        width="70"
+                        height="70"
+                        style="object-fit: cover;"
                         alt=""
                       />
                     </div>
@@ -52,14 +54,14 @@
                           {{ item.product.name }}
                         </span>
                       </div>
-                      <div class="item-name text-overflow-2-lines mb-1">
+                      <!-- <div class="item-name text-overflow-2-lines mb-1">
                         <span class="fs-small fw-medium text-black">
                           Tác giả :
                         </span>
                         <span class="fs-small fst-italic fw-medium text-info">
                           {{ item.product.author }}
                         </span>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="col-2 d-flex align-items-center">
@@ -306,6 +308,7 @@
               </div>
             </div>
           </div>
+          
           <div class="bg-white brr-10 w-100 px-3 px-sm-5 py-3 mt-3">
             <div class="payment-method">
               <div class="row border-bottom pb-3">
@@ -320,6 +323,7 @@
                     v-model:value="order.paymentMethods"
                     placeholder="Chọn phương thức thanh toán"
                     :options="paymentMethodCodes"
+                    
                   ></a-select>
                   <div class="w-100"></div>
                   <small v-if="errors.paymentMethods" class="text-danger">
@@ -442,7 +446,7 @@ export default defineComponent({
   data() {
     return {
       order: {
-        paymentMethods: null,
+        paymentMethods: this.paymentMethodCodes[1].value,
         transportFee: 0,
       },
       user: null,

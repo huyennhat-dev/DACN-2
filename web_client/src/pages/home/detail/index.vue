@@ -1,23 +1,13 @@
-<template>
+<template :key="forceRender">
   <div class="main container detail" style="">
     <div class="row">
       <div class="col-12">
         <div class="row">
           <div class="col-12 detail-body">
             <div class="col-12 py-3">
-              <the-product-detail
-                :_id="product.id"
-                :defaultPhoto="defaultPhoto"
-                :photos="product.photos"
-                :name="product.name"
-                :author="product.author"
-                :star="product.star"
-                :sale="product.sale"
-                :price="product.price"
-                :quantity="product.quantity"
-                :purchases="product.purchases"
-                :tag="product.tag"
-              />
+              <the-product-detail :_id="product.id" :defaultPhoto="defaultPhoto" :photos="product.photos"
+                :name="product.name" :author="product.author" :star="product.star" :sale="product.sale"
+                :price="product.price" :quantity="product.quantity" :purchases="product.purchases" :tag="product.tag" />
             </div>
             <div class="col-12 m-0">
               <the-same-author :products="sameAuthorProducts" />
@@ -59,6 +49,11 @@ export default defineComponent({
       router,
     };
   },
+  watch: {
+    '$route'(to, from) {
+      this.getDetailData();
+    }
+  },
   data() {
     return {
       defaultPhoto: "",
@@ -75,7 +70,7 @@ export default defineComponent({
         star: 0,
         description: "",
         tag: "",
-        cateSlug:""
+        cateSlug: ""
       },
     };
   },

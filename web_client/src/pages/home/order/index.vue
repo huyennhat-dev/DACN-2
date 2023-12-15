@@ -6,21 +6,11 @@
           <div class="order-header">
             <span class="fs-5 fw-bold text-black"> Danh sách đơn hàng </span>
           </div>
+
           <a-tabs v-model:activeKey="activeKey" size="large">
-            <a-tab-pane
-              v-for="pane of panes"
-              class="p-2"
-              :key="pane.key"
-              :tab="pane.title"
-            >
-              <div
-                class="brr-5 shadow-full mb-3 p-2"
-                v-for="(item, index) of pane.content"
-                :key="index"
-              >
-                <div
-                  class="item-header w-100 px-3 py-2 d-flex justify-content-between border-bottom"
-                >
+            <a-tab-pane v-for="pane of panes" class="p-2" :key="pane.key" :tab="pane.title">
+              <div class="brr-5 shadow-full mb-3 p-2" v-for="(item, index) of pane.content" :key="index">
+                <div class="item-header w-100 px-3 py-2 d-flex justify-content-between border-bottom">
                   <div class="border-1 border px-2 brr-5">
                     {{ index + 1 }}
                   </div>
@@ -28,23 +18,13 @@
                     {{ formatTime(item.createdAt) }}
                   </span>
                 </div>
-                <div
-                  class="item-body row d-flex"
-                  :class="{ active: activeIndex == index }"
-                >
+                <div class="item-body row d-flex" :class="{ active: activeIndex == index }">
                   <div class="col-12 col-sm-8">
-                    <div
-                      v-for="(pro, index) of item.item"
-                      :key="pro.product._id"
-                      class="col-12 px-4 py-1 d-flex position-relative"
-                      :class="{ 'border-top': index > 0 }"
-                    >
+                    <div v-for="(pro, index) of item.item" :key="pro.product._id"
+                      class="col-12 px-4 py-1 d-flex position-relative" :class="{ 'border-top': index > 0 }">
                       <div class="item-image brr-2 border" style="padding: 1px">
-                        <img
-                          :src="pro.product.photos[0]"
-                          class="brr-2"
-                          width="70"
-                        />
+                        <img :src="pro.product.photos[0]" class="brr-2" width="70" height="70"
+                          style="object-fit: cover;" />
                       </div>
                       <div class="ms-2">
                         <span class="fs-small fw-bold text-black">
@@ -68,26 +48,14 @@
                           </span>
                         </div>
                       </div>
-                      <div
-                        v-if="pane.key == 'da-nhan-hang'"
-                        class="position-absolute my-2"
-                        style="right: 0; top: 15px"
-                      >
-                        <a-button
-                          type="primary"
-                          danger
-                          ghost
-                          class="brr-5"
-                          @click="vote(item.id)"
-                        >
+                      <div v-if="pane.key == 'da-nhan-hang'" class="position-absolute my-2" style="right: 0; top: 15px">
+                        <a-button type="primary" danger ghost class="brr-5" @click="openModal(item.id, pro.product._id)">
                           Đánh giá
                         </a-button>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="col-12 col-sm-4 d-flex align-items-center justify-content-center"
-                  >
+                  <div class="col-12 col-sm-4 d-flex align-items-center justify-content-center">
                     <div class="row">
                       <div class="col-12 w-100 text-center">
                         <span class="fs-6 fw-medium text-secondary-emphasis">
@@ -96,20 +64,10 @@
                       </div>
                       <div class="col-12 w-100 text-center">
                         <span class="fs-5 fw-medium text-primary">
-                          {{ fomated(item.totalPrice) }}</span
-                        >
+                          {{ fomated(item.totalPrice) }}</span>
                       </div>
-                      <div
-                        v-if="pane.key == 'dang-van-chuyen'"
-                        class="col-12 w-100 text-center my-2"
-                      >
-                        <a-button
-                          type="primary"
-                          danger
-                          ghost
-                          class="brr-5"
-                          @click="receive(item.id)"
-                        >
+                      <div v-if="pane.key == 'dang-van-chuyen'" class="col-12 w-100 text-center my-2">
+                        <a-button type="primary" danger ghost class="brr-5" @click="receive(item.id)">
                           Đã nhận hàng
                         </a-button>
                       </div>
@@ -121,28 +79,38 @@
           </a-tabs>
         </div>
       </div>
-    </div>
+    </div> 
+    <a-modal v-model:visible="isToggleVoteModal" centered :footer="null" class="login-modal brr-5 w-sm-80 w-100"
+      style="padding: 20px">
+      <the-vote-form :data="voteData" />
+    </a-modal>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { BASE_URL } from "../../../configs";
 import { useAuthStore } from "../../../store/auth";
 import { formattedPrice } from "../../../utils/formatPrice";
 import { DollarOutlined } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 
+import TheVoteForm from "../vote/index.vue";
+
+
 export default defineComponent({
   components: {
     DollarOutlined,
+    TheVoteForm
   },
   setup() {
     return {};
   },
   data() {
     return {
+      voteData: null,
       panes: [],
+      isToggleVoteModal: false,
       activeKey: "",
       activeIndex: null,
     };
@@ -163,9 +131,8 @@ export default defineComponent({
 
       const formattedTime = `
       ${gmtPlus7Time.getHours()}:${gmtPlus7Time.getMinutes()}
-      ${gmtPlus7Time.getDate()}-${
-        gmtPlus7Time.getMonth() + 1
-      }-${gmtPlus7Time.getFullYear()}`;
+      ${gmtPlus7Time.getDate()}-${gmtPlus7Time.getMonth() + 1
+        }-${gmtPlus7Time.getFullYear()}`;
       return formattedTime;
     },
     async getAllData() {
@@ -173,7 +140,6 @@ export default defineComponent({
         const res = await axios.get(`${BASE_URL}/home/order/user-order`, {
           headers: { "x-auth-token": useAuthStore().getToken },
         });
-        console.log(res.data);
         if (res.status == 200) {
           for (const tab of res.data.orderStatus) {
             const data = {
@@ -208,25 +174,34 @@ export default defineComponent({
     },
     async receive(id) {
       try {
-        await axios.put(
-          `${BASE_URL}/admin/orders/update/${id}`,
+        const rs = await axios.put(
+          `${BASE_URL}/home/order/update/${id}`,
           { orderStatus: "da-nhan-hang" },
           { headers: { "x-auth-token": useAuthStore().getToken } }
         );
-        message.success({
-          content: "Cập nhật thành công!",
-          duration: 3,
-        });
+        if (rs.status == 200) {
+          message.success({
+            content: "Cập nhật thành công!",
+            duration: 3,
+          });
+          this.panes = []
+          this.getAllData()
+        }
       } catch (error) {
         console.log(error);
       }
     },
+    openModal(itemId, proId) {
+      this.isToggleVoteModal = !this.isToggleVoteModal
+      const products = this.panes[1].content.filter(item => item.id === itemId);
+      this.voteData = products[0].item.filter(pro => pro.product._id === proId)[0]
+    }
   },
 });
 </script>
 
 <style>
-.ant-tabs-large > .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {
+.ant-tabs-large>.ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active {
   border-bottom: 2px solid red !important;
 }
 </style>
