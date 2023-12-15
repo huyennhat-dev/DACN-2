@@ -1,7 +1,7 @@
 <template>
   <div class="cart-drawer p-1 h-100 w-100">
     <div
-      v-if="carts.length <= 0"
+      v-if="carts?.length <= 0"
       class="h-100 w-100 d-flex align-items-center justify-content-center"
     >
       <a-empty :image="simpleImage" description="Chưa có sản phẩm nào!" />
@@ -9,7 +9,7 @@
     <div v-else class="position-relative h-100">
       <div
         class="row cart-drawer-body position-relative h-100 w-100 m-0"
-        :class="{ active: carts.length >= 5 }"
+        :class="{ active: carts?.length >= 5 }"
       >
         <div class="position-absolute top-0 p-0 ps-1">
           <div
@@ -18,11 +18,11 @@
             class="col-12 cart_item d-flex py-2 justify-content-between align-items-center"
             :class="{
               ' border-top': index != 0,
-              active: index + 1 == carts.length,
+              active: index + 1 == carts?.length,
             }"
           >
             <div class="cart_item-img brr-5 shadow-full p1">
-              <img :src="item.product.photos[0]" class="brr-5" width="80" />
+              <img :src="item.product.photos[0]" class="brr-5" width="70" height="70" style="object-fit: cover;" />
             </div>
             <div class="cart_item-body flex-grow-1 px-2">
               <div class="item-name text-overflow-2-lines mb-1">

@@ -61,6 +61,10 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import { formattedPrice } from "../../../utils/formatPrice";
+import { message } from "ant-design-vue";
+
+import { BASE_URL } from "../../../configs";
+import { useAuthStore } from "../../../store/auth";
 export default defineComponent({
   data() {
     return {
@@ -76,6 +80,9 @@ export default defineComponent({
     data: {
       type: Object
     },
+    orderId: {
+      type: String
+    }
   },
   watch: {
     voteStar(newValue) {
@@ -97,13 +104,29 @@ export default defineComponent({
         this.voteContent = inputValue.slice(0, this.maxLength);
       }
     },
-    handleVoteSubmit() {
+    async handleVoteSubmit() {
       const data = {
+        orderId: this.orderId,
         productId: this.data.product._id,
         content: this.voteContent,
-        star: this.voteStar
+        star: this.voteStar,
+        itemId:this.data._id
       }
-      console.log(data)
+      const rs = await axios.post(
+        `${BASE_URL}/home/order/vote`,
+        { data },
+        {
+          headers: { "x-auth-token": useAuthStore().getToken },
+        }
+      );
+
+      if (rs.status == 200) {
+        message.success({
+          content: "Đánh giá thành công!",
+          duration: 3,
+        });
+        this.$emit("handleClickToggleVoteModal");
+      }
     }
   }
 });

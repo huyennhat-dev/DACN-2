@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const { orderModel } = require("../models/order");
 const { orderStatusModel } = require("../models/orderStatus");
 const { cartModel } = require("../models/cart");
-
+const mongoose = require("mongoose");
 const {
   VNP_TMNCODE,
   VNP_HASHSECRET,
@@ -14,6 +14,7 @@ const {
   CLIENT_URL,
 } = require("../config");
 const { productModel } = require("../models/product");
+const { rateModel } = require("../models/rate");
 
 const sortObject = (obj) => {
   let sorted = {};
@@ -198,6 +199,58 @@ const orderController = {
       console.log(error);
     }
   },
+  vote: async (req, res) => {
+    try {
+      const { productId, itemId, content, star } = req.body.data;
+      const uid = req.user.sub.id;
+      orderModel
+        .updateOne(
+          { "products._id": itemId },
+          { $set: { "products.$.status": 1 } }
+        )
+        .exec()
+        .then(async (result) => {
+          const rate = await rateModel.create({
+            user: uid,
+            content,
+            star,
+            product: productId,
+          });
+
+          const rs = await rateModel.aggregate([
+            {
+              $match: {
+                product: new mongoose.Types.ObjectId(productId),
+              },
+            },
+            {
+              $group: {
+                _id: null,
+                avgStar: { $avg: "$star" },
+              },
+            },
+          ]);
+
+          const averageStar = rs.length > 0 ? rs[0].avgStar : null;
+
+          await productModel.updateOne(
+            { _id: productId },
+            {
+              $push: { rates: rate._id },
+              $set: { star: averageStar }
+            }
+          );
+          
+        })
+        .catch((error) => {
+          console.error("Lỗi khi cập nhật:", error);
+        });
+      return res.status(200).json({ status: true });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+ 
 };
 
 module.exports = orderController;

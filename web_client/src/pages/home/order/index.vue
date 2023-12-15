@@ -23,13 +23,20 @@
                     <div v-for="(pro, index) of item.item" :key="pro.product._id"
                       class="col-12 px-4 py-1 d-flex position-relative" :class="{ 'border-top': index > 0 }">
                       <div class="item-image brr-2 border" style="padding: 1px">
-                        <img :src="pro.product.photos[0]" class="brr-2" width="70" height="70"
-                          style="object-fit: cover;" />
+                        <router-link :to="{ name: 'detail', params: { id: pro.product._id } }" :key="pro.product._id"
+                          style="cursor: pointer">
+
+                          <img :src="pro.product.photos[0]" class="brr-2" width="70" height="70"
+                            style="object-fit: cover;" />
+                        </router-link>
                       </div>
                       <div class="ms-2">
-                        <span class="fs-small fw-bold text-black">
-                          {{ pro.product.name }}
-                        </span>
+                        <router-link :to="{ name: 'detail', params: { id: pro.product._id } }" :key="pro.product._id"
+                          style="cursor: pointer">
+                          <span class="fs-small fw-bold text-black">
+                            {{ pro.product.name }}
+                          </span>
+                        </router-link>
 
                         <div class="d-flex">
                           <span class="fs-small fw-medium text-black">
@@ -83,7 +90,7 @@
     </div>
     <a-modal v-model:visible="isToggleVoteModal" centered :footer="null" class="login-modal brr-5 w-sm-80 w-100"
       style="padding: 20px">
-      <the-vote-form :data="voteData" />
+      <the-vote-form :data="voteData" :orderId="orderId" v-on:handleClickToggleVoteModal="closeModal" />
     </a-modal>
   </div>
 </template>
@@ -114,6 +121,7 @@ export default defineComponent({
       isToggleVoteModal: false,
       activeKey: "",
       activeIndex: null,
+      orderId: ""
     };
   },
   created() {
@@ -196,7 +204,16 @@ export default defineComponent({
     openModal(itemId, proId) {
       this.isToggleVoteModal = !this.isToggleVoteModal
       const products = this.panes[1].content.filter(item => item.id === itemId);
+
       this.voteData = products[0].item.filter(pro => pro.product._id === proId)[0]
+      this.orderId = itemId
+    },
+    async closeModal() {
+      this.isToggleVoteModal = !this.isToggleVoteModal
+      this.panes = []
+      await this.getAllData()
+      this.activeKey = "da-nhan-hang"
+
     }
   },
 });

@@ -9,4 +9,6 @@ router.get("/vnpay-return", orderController.vnpRs);
 router.get("/user-order", authjwt, orderController.showOrderByUser);
 router.put("/update/:id", authjwt, orderController.update);
 
+router.post("/vote", authjwt, orderController.vote)
+
 module.exports = router;

@@ -7,6 +7,7 @@
             <div class="col-12 py-3">
               <the-product-detail :_id="product.id" :defaultPhoto="defaultPhoto" :photos="product.photos"
                 :name="product.name" :author="product.author" :star="product.star" :sale="product.sale"
+                :rate="product.rates?.length"
                 :price="product.price" :quantity="product.quantity" :purchases="product.purchases" :tag="product.tag" />
             </div>
             <div class="col-12 m-0">
@@ -16,7 +17,7 @@
               <the-product-desc v-bind:description="product.description" />
             </div>
             <div class="col-12 pb-2">
-              <the-product-evaluate />
+              <the-product-evaluate :data="product.rates"/>
             </div>
           </div>
         </div>
@@ -55,6 +56,7 @@ export default defineComponent({
     }
   },
   data() {
+
     return {
       defaultPhoto: "",
       sameAuthorProducts: null,
@@ -70,7 +72,8 @@ export default defineComponent({
         star: 0,
         description: "",
         tag: "",
-        cateSlug: ""
+        cateSlug: "",
+        rates: []
       },
     };
   },
@@ -111,6 +114,7 @@ export default defineComponent({
           this.product.tag = res.data.product.categories.name;
           this.product.cateSlug = res.data.product.categories.slug;
           this.defaultPhoto = res.data.product.photos[0];
+          this.product.rates = res.data.product.rates
         }
         this.getSameAuthor();
       } catch (error) {

@@ -18,7 +18,15 @@ const productController = {
           path: "categories",
           select: "-products -status -updatedAt -createdAt",
         })
-        .select("-rates -updatedAt -createdAt");
+        .populate({
+          path: "rates",
+          populate: {
+            path: "user",
+            select: "name photo",
+          },
+       
+        })
+        .select("-updatedAt -createdAt");
 
       return res.status(200).json({ status: true, product: pro });
     } catch (error) {

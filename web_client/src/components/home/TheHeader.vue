@@ -4,7 +4,7 @@
       <div class="container">
         <div class="d-flex justify-content-around">
           <div>
-            <div class="d-none d-sm-block logo text-center">
+            <div class="d-none d-sm-block  logo text-center">
               <router-link :to="{ name: 'index' }">
                 <img class="" src="../../assets/images/logo_2.png" alt="" />
               </router-link>
@@ -20,10 +20,11 @@
               <a-input v-model:value="searchValue" class="h-100 brr-5" placeholder="Bạn muốn tìm gì?"
                 @keyup.enter="searchProducts" allowClear>
                 <template #prefix>
-                  <search-outlined class="d-none d-sm-block" />
+                  <search-outlined class="d-none d-sm-block headerButtonText" />
                 </template>
                 <template #suffix>
-                  <div class="header-search_button d-none d-sm-block" style="cursor: pointer" @click="searchProducts">
+                  <div class="header-search_button d-none d-sm-block headerButtonText" style="cursor: pointer"
+                    @click="searchProducts">
                     Tìm kiếm
                   </div>
                   <search-outlined class="d-block d-sm-none" />
@@ -33,20 +34,37 @@
           </div>
           <div class="d-flex ms-2 align-items-center justify-content-between justify-content-sm-end">
             <ul class="nav justify-content-sm-end">
+              <router-link :to="{ name: 'index' }" key="home" style="cursor: pointer">
+                <li
+                  class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
+                  <home-outlined class="button-icon me-1" />
+                  <span class="d-none d-sm-block header-button-text "> Trang chủ</span>
+                </li>
+              </router-link>
+
               <router-link :to="{ name: 'contact' }" key="contact" style="cursor: pointer">
                 <li
                   class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
-                  <shopping-outlined class="button-icon me-1" />
-                  <span class="d-none d-sm-block "> Liên hệ</span>
+                  <contacts-outlined class="button-icon me-1" />
+                  <span class="d-none d-sm-block header-button-text "> Liên hệ</span>
                 </li>
               </router-link>
+              <li v-if="isLogged"
+                class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center ms-1"
+                @click="handleClickOpenCart">
+                <shopping-outlined class="button-icon me-1" />
+                <span class="d-none d-sm-block header-button-text cart-button-title"> Giỏ hàng</span>
+                <div v-if="carts?.length > 0" class="count-cart">
+                  {{ carts.length > 99 ? "+99" : carts.length }}
+                </div>
+              </li>
               <li v-if="!isLogged"
                 class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center"
                 @click="handleClick">
                 <login-outlined class="button-icon" />
-                <span class="d-none d-sm-block">Đăng nhập</span>
+                <span class="d-none d-sm-block header-button-text">Đăng nhập</span>
               </li>
-              <li v-if="isLogged" class="d-none d-sm-block header-account position-relative me-2">
+              <li v-if="isLogged" class="d-none d-sm-block header-account position-relative ms-2">
                 <div class="d-flex justify-content-between align-items-center h-100">
                   <div class="user-photo me-1 rounded-circle">
                     <img :src="user.photo" width="30" class="rounded-circle" />
@@ -76,15 +94,7 @@
                   </ul>
                 </div>
               </li>
-              <li v-if="isLogged"
-                class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center"
-                @click="handleClickOpenCart">
-                <shopping-outlined class="button-icon me-1" />
-                <span class="d-none d-sm-block cart-button-title"> Giỏ hàng</span>
-                <div v-if="carts?.length > 0" class="count-cart">
-                  {{ carts.length > 99 ? "+99" : carts.length }}
-                </div>
-              </li>
+
               <li @click="handleClickOpenMenu"
                 class="header-button d-flex align-items-center justify-content-center d-block d-sm-none brr-5 px-1 px-sm-2">
                 <menu-outlined class="button-icon" />
@@ -112,6 +122,7 @@ import {
   HomeOutlined,
   ShoppingOutlined,
   MenuOutlined,
+  ContactsOutlined
 } from "@ant-design/icons-vue";
 
 import { useAuthStore } from "../../store/auth";
@@ -130,6 +141,7 @@ export default defineComponent({
     SearchOutlined,
     HomeOutlined,
     ShoppingOutlined,
+    ContactsOutlined
   },
   setup() {
     const isLogged = ref(useAuthStore().isAuthenticated);
@@ -292,7 +304,7 @@ export default defineComponent({
 }
 
 .header .account-body {
-  right: 0;
+  left: -40px;
   top: 35px;
   opacity: 0;
   width: 100%;
@@ -367,6 +379,12 @@ export default defineComponent({
   .header-button.cart .count-cart {
     width: 16px;
     height: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .header .header-button-text {
+    display: none !important;
   }
 }
 

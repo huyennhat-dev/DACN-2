@@ -40,7 +40,7 @@
           <div class="rating col-12 mb-3 d-flex align-items-center">
             <a-rate :value="star" disabled class="fs-6 me-2" />
             <span class="fs-small text-secondary fst-italic me-2">
-              ( 60 đánh giá)
+              ( {{rate  }} đánh giá)
             </span>
             <span class="fs-small text-secondary">
               | &nbsp; Đã bán {{ purchases }}
@@ -252,6 +252,7 @@ export default defineComponent({
     star: Number,
     tag: String,
     tagSlug: String,
+    rate:Number
   },
   mounted() {},
   methods: {
