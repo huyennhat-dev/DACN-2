@@ -15,10 +15,10 @@
               </div>
               <div class="d-none d-sm-block">
                 <span class="fs-6 fw-bold text-primary">
-                  {{ fomated(data.product.price - data.product.price * data.product.sale) }}
+                  {{ formatted(data.product.price - data.product.price * data.product.sale) }}
                 </span>
                 <span class=" ms-3 fs-small fw-normal text-primary text-decoration-line-through fst-italic">
-                  {{ fomated(data.product.price) }}
+                  {{ formatted(data.product.price) }}
                 </span>
                 <span class="ms-2 fs-small text-black">
                   Giảm giá
@@ -28,21 +28,29 @@
 
             </div>
           </div>
+          <div class="col-12  px-0 px-sm-4 mt-2 ">
+
+            <label for="" class="mb-1">Đánh giá sao:</label>
+            <div>
+              <a-rate v-model:value="voteStar" class="fs-4" :tooltips="voteText" />
+              <span class="ms-3 fw-medium " :style="{ color: voteColor[voteStar - 1] }">
+                {{ voteText[voteStar - 1] }}
+              </span>
+
+            </div>
+
+          </div>
           <div class="col-12 px-0 px-sm-4 mt-2 ">
             <label for="vote-text-form" class="mb-1">Nhập nội dung đánh giá:</label>
-            <a-textarea id="vote-text-form" class="border-primary brr-5 shadow-1-primary" :value="voteContent"
+            <a-textarea id="vote-text-form" class="border-primary brr-5 shadow-1-primary mt-1" :value="voteContent"
               @change="handleTextareaChange" style="min-height: 150px;" />
           </div>
-          <div class="col-12 px-0 px-sm-4 mt-2 d-flex align-items-end justify-content-between">
-            <div>
-              <label for="vote-text-form" class="mb-1">Đánh giá sao:</label>
-              <a-rate v-model:value="voteStar" class="ms-2" />
-            </div>
-            <div>
-              <a-button class="brr-5  mb-3 mb-sm-0 ps-3 pe-3" danger htmlType="submit">
-                Đánh giá
-              </a-button>
-            </div>
+
+          <div class="col-12 px-0 px-sm-4 mt-2 text-center">
+            <a-button class="brr-5 mb-3 mb-sm-0 ps-3 pe-3" danger htmlType="submit">
+              Gửi đánh giá
+            </a-button>
+
           </div>
         </a-form>
       </div>
@@ -51,15 +59,17 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { formattedPrice } from "../../../utils/formatPrice";
-
 export default defineComponent({
   data() {
     return {
       maxLength: 300,
       voteContent: '',
       voteStar: 5,
+      voteText: ['Rất không hài lòng', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Rất hài lòng'],
+      voteColor: ['#FF0000', '#FF4500', '#fadb14', '#B9EF68', '#008000'],
+
     };
   },
   props: {
@@ -67,8 +77,15 @@ export default defineComponent({
       type: Object
     },
   },
+  watch: {
+    voteStar(newValue) {
+      if (newValue < 1) {
+        this.voteStar = 1;
+      }
+    },
+  },
   methods: {
-    fomated(price) {
+    formatted(price) {
       if (price) return formattedPrice(price);
     },
     handleTextareaChange(e) {

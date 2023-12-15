@@ -73,20 +73,17 @@ const orderController = {
       const id = req.params.id;
 
       let orderStatus = req.body.orderStatus;
+      const order = await orderModel.findById(id);
+
       if (orderStatus == "da-nhan-hang") {
         const ost = await orderStatusModel.findOne({ slug: orderStatus });
         orderStatus = ost._id;
-      }
 
-      const order = await orderModel.findById(id);
-
-      if (orderStatus == "646d1494ffbb65d423a31646") {
         for (const pro of order.products) {
           const quantity = pro.quantity;
-          const x = await productModel.findByIdAndUpdate(pro.product, {
+          await productModel.findByIdAndUpdate(pro.product, {
             $inc: { quantity: -quantity, purchases: +quantity },
           });
-          console.log(x);
         }
       }
       await order.updateOne({

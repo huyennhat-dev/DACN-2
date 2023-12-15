@@ -36,7 +36,7 @@
                             Giá tiền :
                           </span>
                           <span class="ms-1 fs-small fw-medium text-primary">
-                            {{ fomated(pro.price) }}
+                            {{ formatted(pro.price) }}
                           </span>
                         </div>
                         <div class="d-flex">
@@ -48,7 +48,8 @@
                           </span>
                         </div>
                       </div>
-                      <div v-if="pane.key == 'da-nhan-hang'" class="position-absolute my-2" style="right: 0; top: 15px">
+                      <div v-if="pane.key == 'da-nhan-hang' && pro.status == 0" class="position-absolute my-2"
+                        style="right: 0; top: 15px">
                         <a-button type="primary" danger ghost class="brr-5" @click="openModal(item.id, pro.product._id)">
                           Đánh giá
                         </a-button>
@@ -64,7 +65,7 @@
                       </div>
                       <div class="col-12 w-100 text-center">
                         <span class="fs-5 fw-medium text-primary">
-                          {{ fomated(item.totalPrice) }}</span>
+                          {{ formatted(item.totalPrice) }}</span>
                       </div>
                       <div v-if="pane.key == 'dang-van-chuyen'" class="col-12 w-100 text-center my-2">
                         <a-button type="primary" danger ghost class="brr-5" @click="receive(item.id)">
@@ -79,7 +80,7 @@
           </a-tabs>
         </div>
       </div>
-    </div> 
+    </div>
     <a-modal v-model:visible="isToggleVoteModal" centered :footer="null" class="login-modal brr-5 w-sm-80 w-100"
       style="padding: 20px">
       <the-vote-form :data="voteData" />
@@ -122,7 +123,7 @@ export default defineComponent({
     viewMore(index) {
       this.activeIndex = index;
     },
-    fomated(price) {
+    formatted(price) {
       if (price) return formattedPrice(price);
     },
     formatTime(time) {
@@ -149,7 +150,7 @@ export default defineComponent({
             };
             this.panes.push(data);
           }
-          this.activeKey = this.panes[0].key;
+          this.activeKey = this.panes[1].key;
           for (const order of res.data.orders) {
             const items = [];
             for (const pro of order.products) items.push(pro);
@@ -185,7 +186,8 @@ export default defineComponent({
             duration: 3,
           });
           this.panes = []
-          this.getAllData()
+          await this.getAllData()
+          this.activeKey = "da-nhan-hang"
         }
       } catch (error) {
         console.log(error);

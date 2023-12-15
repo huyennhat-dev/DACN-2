@@ -17,22 +17,13 @@
           </div>
           <div class="input-search-form d-flex align-items-center-center">
             <div class="header-body-seach_form w-100 py-2 py-sm-1">
-              <a-input
-                v-model:value="searchValue"
-                class="h-100 brr-5"
-                placeholder="Bạn muốn tìm gì?"
-                @keyup.enter="searchProducts"
-                allowClear
-              >
+              <a-input v-model:value="searchValue" class="h-100 brr-5" placeholder="Bạn muốn tìm gì?"
+                @keyup.enter="searchProducts" allowClear>
                 <template #prefix>
                   <search-outlined class="d-none d-sm-block" />
                 </template>
                 <template #suffix>
-                  <div
-                    class="header-search_button d-none d-sm-block"
-                    style="cursor: pointer"
-                    @click="searchProducts"
-                  >
+                  <div class="header-search_button d-none d-sm-block" style="cursor: pointer" @click="searchProducts">
                     Tìm kiếm
                   </div>
                   <search-outlined class="d-block d-sm-none" />
@@ -40,25 +31,23 @@
               </a-input>
             </div>
           </div>
-          <div
-            class="d-flex ms-2 align-items-center justify-content-between justify-content-sm-end"
-          >
+          <div class="d-flex ms-2 align-items-center justify-content-between justify-content-sm-end">
             <ul class="nav justify-content-sm-end">
-              <li
-                v-if="!isLogged"
+              <router-link :to="{ name: 'contact' }" key="contact" style="cursor: pointer">
+                <li
+                  class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
+                  <shopping-outlined class="button-icon me-1" />
+                  <span class="d-none d-sm-block "> Liên hệ</span>
+                </li>
+              </router-link>
+              <li v-if="!isLogged"
                 class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center"
-                @click="handleClick"
-              >
+                @click="handleClick">
                 <login-outlined class="button-icon" />
                 <span class="d-none d-sm-block">Đăng nhập</span>
               </li>
-              <li
-                v-if="isLogged"
-                class="d-none d-sm-block header-account position-relative me-2"
-              >
-                <div
-                  class="d-flex justify-content-between align-items-center h-100"
-                >
+              <li v-if="isLogged" class="d-none d-sm-block header-account position-relative me-2">
+                <div class="d-flex justify-content-between align-items-center h-100">
                   <div class="user-photo me-1 rounded-circle">
                     <img :src="user.photo" width="30" class="rounded-circle" />
                   </div>
@@ -66,10 +55,7 @@
                     {{ user.name }}
                   </span>
                 </div>
-                <div
-                  class="account-body position-absolute z-3 p-2"
-                  style="width: 200px"
-                >
+                <div class="account-body position-absolute z-3 p-2" style="width: 200px">
                   <ul class="nav">
                     <router-link :to="{ name: 'account' }" class="w-100">
                       <li class="account-item p-2 w-100">
@@ -90,21 +76,17 @@
                   </ul>
                 </div>
               </li>
-              <li
-                v-if="isLogged"
+              <li v-if="isLogged"
                 class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center"
-                @click="handleClickOpenCart"
-              >
+                @click="handleClickOpenCart">
                 <shopping-outlined class="button-icon me-1" />
                 <span class="d-none d-sm-block cart-button-title"> Giỏ hàng</span>
                 <div v-if="carts?.length > 0" class="count-cart">
                   {{ carts.length > 99 ? "+99" : carts.length }}
                 </div>
               </li>
-              <li
-                @click="handleClickOpenMenu"
-                class="header-button d-flex align-items-center justify-content-center d-block d-sm-none brr-5 px-1 px-sm-2"
-              >
+              <li @click="handleClickOpenMenu"
+                class="header-button d-flex align-items-center justify-content-center d-block d-sm-none brr-5 px-1 px-sm-2">
                 <menu-outlined class="button-icon" />
               </li>
             </ul>
@@ -221,13 +203,16 @@ export default defineComponent({
   z-index: 998;
   top: 0;
 }
+
 .header .input-search-form {
   width: 40%;
 }
+
 @media (max-width: 768px) {
   .header .input-search-form {
     width: 50%;
   }
+
   .header .cart-button-title,
   .header .username {
     display: none !important;
@@ -254,6 +239,7 @@ export default defineComponent({
 .header-body .logo {
   padding: 0 15px;
 }
+
 .header-body .logo img {
   height: 50px;
 }
@@ -268,10 +254,12 @@ export default defineComponent({
   cursor: pointer;
   transition: all 0.2s;
 }
+
 .header .header-search_button {
   font-weight: 600;
   transition: scale 0.2s;
 }
+
 .header .header-search_button:active {
   scale: 1.03;
   -moz-user-select: none;
@@ -291,6 +279,7 @@ export default defineComponent({
   background-color: rgba(159, 156, 155, 0.1);
   transition: all 0.2s;
 }
+
 .header .header-account {
   cursor: pointer;
 }
@@ -301,6 +290,7 @@ export default defineComponent({
   transform: translateY(10px);
   transition: opacity 0.3s, transform 0.3s;
 }
+
 .header .account-body {
   right: 0;
   top: 35px;
@@ -313,6 +303,7 @@ export default defineComponent({
   transition: opacity 0.3s, transform 0.3s;
   background-color: rgba(237, 237, 237, 0.9);
 }
+
 .header .account-body::after {
   content: "";
   position: absolute;
@@ -333,20 +324,24 @@ export default defineComponent({
   width: 100%;
   background-color: transparent;
 }
+
 .header .account-item {
   color: #000;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.15s;
 }
+
 .header .account-item:hover {
   color: var(--primary-color);
   transition: all 0.15s;
 }
+
 .header .account-item:hover span {
   scale: 1.2;
   transition: all 0.2s;
 }
+
 .header .header-button.cart {
   position: relative;
 }
@@ -367,12 +362,14 @@ export default defineComponent({
   align-items: center;
   box-shadow: 0 0 10px 0px var(--primary-color);
 }
+
 @media (max-width: 576px) {
   .header-button.cart .count-cart {
     width: 16px;
     height: 16px;
   }
 }
+
 .header .button-icon {
   font-size: 18px;
 }

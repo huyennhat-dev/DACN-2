@@ -36,7 +36,7 @@
                 <div class="px-4 d-flex">
                   <p class="fs-6">Tổng tiền :</p>
                   <p class="fs-6 ms-2 fw-bold">
-                    {{ fomated(order.totalPrice) }}
+                    {{ formatted(order.totalPrice) }}
                   </p>
                 </div>
                 <div class="px-4 d-flex">
@@ -110,10 +110,10 @@
               <span>{{ record.product.name }}</span>
             </template>
             <template v-if="column.key == 'price'">
-              <span>{{ fomated(record.price) }}</span>
+              <span>{{ formatted(record.price) }}</span>
             </template>
             <template v-if="column.key == 'totalPrice'">
-              <span>{{ fomated(record.price * record.quantity) }}</span>
+              <span>{{ formatted(record.price * record.quantity) }}</span>
             </template>
           </template>
         </a-table>
@@ -146,7 +146,7 @@ import TheBill from "./components/TheBill.vue";
 export default defineComponent({
   components: { TheBill },
   setup() {
-    const fomated = (price) => formattedPrice(price);
+    const formatted = (price) => formattedPrice(price);
 
     const columns = [
       {
@@ -195,7 +195,7 @@ export default defineComponent({
     const showModal = () => {
       visible.value = true;
     };
-    return { columns, filterOption, fomated, visible, showModal };
+    return { columns, filterOption, formatted, visible, showModal };
   },
   data() {
     return {

@@ -133,7 +133,7 @@ const orderController = {
 
       if (secureHash === signed) {
         const rsCode = vnp_Params["vnp_ResponseCode"];
-        if (rsCode == 00) {
+        if (rsCode == "00") {
           const pid = vnp_Params["vnp_TxnRef"];
 
           const orderStatus = await orderStatusModel.findOne({
@@ -176,25 +176,22 @@ const orderController = {
   update: async (req, res) => {
     try {
       const id = req.params.id;
-
       const ost = await orderStatusModel.findOne({
         slug: req.body.orderStatus,
       });
-      const orderStatus = ost._id;
 
       const order = await orderModel.findById(id);
 
-      if (orderStatus == "6579c71cc12e2d6c202d392b") {
+      if (ost.slug == "da-nhan-hang") {
         for (const pro of order.products) {
           const quantity = pro.quantity;
-          const x = await productModel.findByIdAndUpdate(pro.product, {
+          await productModel.findByIdAndUpdate(pro.product._id, {
             $inc: { quantity: -quantity, purchases: +quantity },
           });
-          console.log(x);
         }
       }
       await order.updateOne({
-        $set: { orderStatus: orderStatus },
+        $set: { orderStatus: ost._id },
       });
       return res.status(200).json({ status: true });
     } catch (error) {
