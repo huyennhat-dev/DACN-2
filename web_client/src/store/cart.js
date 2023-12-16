@@ -63,6 +63,7 @@ export const useCartStore = defineStore("cart", {
           this.handleTotalPrice();
           return true;
         }
+        return false;
       } catch (error) {
         console.error("Failed add to cart ", error);
         return false;

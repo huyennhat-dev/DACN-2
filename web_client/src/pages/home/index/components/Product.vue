@@ -99,7 +99,6 @@ export default defineComponent({
             duration: 3,
           });
         else {
-          this.$emit("handleClickToggleLoginModal");
           notification.warning({
             description: "Bạn cần phải đăng nhập",
             duration: 3,

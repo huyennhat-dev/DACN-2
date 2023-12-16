@@ -9,7 +9,10 @@
 
           <a-tabs v-model:activeKey="activeKey" size="large">
             <a-tab-pane v-for="pane of panes" class="p-2" :key="pane.key" :tab="pane.title">
-              <div class="brr-5 shadow-full mb-3 p-2" v-for="(item, index) of pane.content" :key="index">
+              <div v-if="pane.content?.length <= 0" class="h-100 w-100 d-flex align-items-center justify-content-center">
+                <a-empty :image="simpleImage" description="Chưa có sản phẩm nào!" />
+              </div>
+              <div v-else class="brr-5 shadow-full mb-3 p-2" v-for="(item, index) of pane.content" :key="index">
                 <div class="item-header w-100 px-3 py-2 d-flex justify-content-between border-bottom">
                   <div class="border-1 border px-2 brr-5">
                     {{ index + 1 }}

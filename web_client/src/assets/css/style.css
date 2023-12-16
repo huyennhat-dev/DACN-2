@@ -185,7 +185,19 @@
   }
 
   .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
-      border-color: rgba(255, 77, 80, 0.2);
+      border-color: var(--primary-color);
+  }
+
+  .ant-input:hover,
+  .ant-input:focus,
+  .ant-input-focused {
+      border-color: var(--primary-color);
+  }
+
+  .ant-input:focus,
+  .ant-input-focused {
+      box-shadow: 0 0 0 2px rgba(255, 77, 80, 0.2);
+
   }
 
   .square {

@@ -36,7 +36,7 @@
             <ul class="nav justify-content-sm-end">
               <router-link :to="{ name: 'index' }" key="home" style="cursor: pointer">
                 <li
-                  class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
+                  class="header-button d-none d-sm-flex  cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
                   <home-outlined class="button-icon me-1" />
                   <span class="d-none d-sm-block header-button-text "> Trang chủ</span>
                 </li>
@@ -44,7 +44,7 @@
 
               <router-link :to="{ name: 'contact' }" key="contact" style="cursor: pointer">
                 <li
-                  class="header-button d-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
+                  class="header-button d-none d-sm-flex cart brr-5 px-1 px-sm-3 me-2 me-sm-0 py-sm-2 align-items-center justify-content-center">
                   <contacts-outlined class="button-icon me-1" />
                   <span class="d-none d-sm-block header-button-text "> Liên hệ</span>
                 </li>

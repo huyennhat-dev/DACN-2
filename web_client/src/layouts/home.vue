@@ -26,7 +26,7 @@
     <a-drawer v-model:visible="isToggleMenuDrawer" class="menu-drawer" style="color: red" placement="left">
       <the-menu-drawer />
     </a-drawer>
-    <the-footer class="mt-3 bg-white shadow-full" />
+    <the-footer class="mt-3 bg-white shadow-full footer" />
   </div>
 </template>
 
@@ -116,4 +116,10 @@ export default defineComponent({
   height: 50px;
   width: 50px;
 }
+
+.footer {
+  background-image: url('../assets/images/ct.jpg');
+  background-size: cover;
+}
+
 </style>
