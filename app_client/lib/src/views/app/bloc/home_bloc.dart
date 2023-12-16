@@ -1,5 +1,5 @@
-import 'package:app_client/src/model/product.dart';
-import 'package:app_client/src/repo/home.dart';
+import '/src/model/product.dart';
+import '/src/repo/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class HomeListProductEvent {}

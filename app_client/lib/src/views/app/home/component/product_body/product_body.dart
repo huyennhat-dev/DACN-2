@@ -1,7 +1,7 @@
-import 'package:app_client/src/util/button.dart';
-import 'package:app_client/src/views/app/bloc/cart_bloc.dart';
-import 'package:app_client/src/views/app/bloc/counter_bloc.dart';
-import 'package:app_client/src/views/app/home/component/product_body/product_body_bloc.dart';
+import '/src/util/button.dart';
+import '/src/views/app/bloc/cart_bloc.dart';
+import '/src/views/app/bloc/counter_bloc.dart';
+import '/src/views/app/home/component/product_body/product_body_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

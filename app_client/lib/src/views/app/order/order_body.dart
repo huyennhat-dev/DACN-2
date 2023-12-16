@@ -1,7 +1,7 @@
-import 'package:app_client/src/util/behavior.dart';
-import 'package:app_client/src/views/app/bloc/user_bloc.dart';
-import 'package:app_client/src/views/app/order/order_tab_bloc.dart';
-import 'package:app_client/src/views/constants.dart';
+import '/src/util/behavior.dart';
+import '/src/views/app/bloc/user_bloc.dart';
+import '/src/views/app/order/order_tab_bloc.dart';
+import '/src/views/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,7 +93,7 @@ class _OrderBodyState extends State<OrderBody> {
                     orderTabBloc.add(ChangeTabEvent(selectTabIndex: page)),
                 itemCount: state.orderStatus!.length,
                 itemBuilder: (context, index) {
-                  final List<Order> orders = state.orders!
+                  final List orders = state.orders!
                       .where((order) =>
                           order.orderStatus!.slug ==
                           state.orderStatus![index].slug)

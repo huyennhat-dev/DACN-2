@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:app_client/src/model/user.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import '../helper/google_sign_in.dart';
 import '../helper/shared_pref.dart';
+import '../model/user.dart';
 import '../repo/auth.dart';
 
 class AuthController {

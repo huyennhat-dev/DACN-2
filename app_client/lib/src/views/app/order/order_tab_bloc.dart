@@ -1,4 +1,4 @@
-import 'package:app_client/src/model/order.dart';
+import '/src/model/order.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../model/cart.dart';

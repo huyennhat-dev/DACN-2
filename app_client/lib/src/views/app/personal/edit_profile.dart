@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app_client/src/model/user.dart';
-import 'package:app_client/src/util/behavior.dart';
-import 'package:app_client/src/util/button.dart';
-import 'package:app_client/src/util/loading.dart';
-import 'package:app_client/src/views/app/bloc/user_bloc.dart';
-import 'package:app_client/src/views/app/personal/crop_image_bloc.dart';
-import 'package:app_client/src/views/constants.dart';
+import '/src/model/user.dart';
+import '/src/util/behavior.dart';
+import '/src/util/button.dart';
+import '/src/util/loading.dart';
+import '/src/views/app/bloc/user_bloc.dart';
+import '/src/views/app/personal/crop_image_bloc.dart';
+import '/src/views/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

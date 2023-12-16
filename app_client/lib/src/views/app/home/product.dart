@@ -1,4 +1,4 @@
-import 'package:app_client/src/views/app/bloc/product_bloc.dart';
+import '/src/views/app/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

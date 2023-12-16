@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:app_client/src/model/user.dart';
-import 'package:app_client/src/repo/auth.dart';
-import 'package:app_client/src/views/app/order/order_tab_bloc.dart';
+import '/src/model/user.dart';
+import '/src/repo/auth.dart';
+import '/src/views/app/order/order_tab_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,5 +1,5 @@
-import 'package:app_client/src/model/user.dart';
-import 'package:app_client/src/repo/auth.dart';
+import '/src/model/user.dart';
+import '/src/repo/auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

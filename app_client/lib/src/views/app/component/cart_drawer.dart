@@ -1,5 +1,5 @@
-import 'package:app_client/src/util/button.dart';
-import 'package:app_client/src/views/app/bloc/cart_bloc.dart';
+import '/src/util/button.dart';
+import '/src/views/app/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';

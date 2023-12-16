@@ -43,7 +43,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.huyennhat.bookvn"
+        applicationId "com.lovepet.vn"
         minSdkVersion 19
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()

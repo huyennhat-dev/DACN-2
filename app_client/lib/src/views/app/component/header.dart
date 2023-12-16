@@ -1,5 +1,5 @@
-import 'package:app_client/src/views/app/bloc/cart_bloc.dart';
-import 'package:app_client/src/views/constants.dart';
+import '/src/views/app/bloc/cart_bloc.dart';
+import '/src/views/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
