@@ -125,6 +125,39 @@ const userAdminController = {
       return res.status(500).json({ status: false, error });
     }
   },
+  createAdmin: async (req, res) => {
+    try {
+      const data = req.body;
+
+      if (validator.validate(data.email)) {
+        if (data.photo) {
+          const rs = await cloudinary.uploader.upload(data.photo, {
+            folder: "images/users",
+          });
+          data.photo = rs.url;
+        }
+
+        data.password = await bcrypt.hash(data.password, 10);
+        const user = await adminModel.create(data);
+        await roleModel.updateOne(
+          { _id: data.role },
+          { $push: { admins: user._id } }
+        );
+
+        return res.status(200).json({ status: true });
+      }
+      return res.status(401).json({
+        status: false,
+        error: {
+          keyPattern: {
+            message: "Email không đúng định dạng!",
+          },
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({ status: false, error });
+    }
+  },
   edit: async (req, res) => {
     try {
       const id = req.params.id;

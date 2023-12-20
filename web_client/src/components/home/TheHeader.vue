@@ -67,10 +67,10 @@
               <li v-if="isLogged" class="d-none d-sm-block header-account position-relative ms-2">
                 <div class="d-flex justify-content-between align-items-center h-100">
                   <div class="user-photo me-1 rounded-circle">
-                    <img :src="user.photo" width="30" class="rounded-circle" />
+                    <img :src="user?.photo" width="30" class="rounded-circle" />
                   </div>
                   <span class="username">
-                    {{ user.name }}
+                    {{ user?.name }}
                   </span>
                 </div>
                 <div class="account-body position-absolute z-3 p-2" style="width: 200px">

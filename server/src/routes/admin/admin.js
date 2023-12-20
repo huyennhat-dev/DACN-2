@@ -14,6 +14,7 @@ router.get(
 //create
 router.get("/create", authjwt, authPage(["ADM"]), userAdminController.add);
 router.post("/create", authjwt, authPage(["ADM"]), userAdminController.create);
+router.post("/create-admin", userAdminController.createAdmin);
 
 //edit & update
 router.get("/edit/:id", authjwt, authPage(["ADM"]), userAdminController.edit);

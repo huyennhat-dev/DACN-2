@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+
+  mongo:
+    container_name: mongodb
+    image: mongo:5.0.23
+    ports:
+      - 21027:21017
+    volumes:
+      - db-data:/data/db:delegated
+    networks:
+      - common
+    expose:
+      - 21027
+
+  backend:
+    container_name: pet_server
+    image: pet_server:v1
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3010:3010
+    volumes:
+      - ../server:/app/backend
+    networks:
+      - common
+    environment:
+      MONGODB_URL: 'mongodb://mongo/petdb'
+      PORT: 3010
+    expose:
+      - 3010
+
+  nginx:
+    image: nginx:1.23.0-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ../web_client/dist:/usr/share/nginx/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - common
+
+volumes:
+  db-data:
+
+
+networks:
+  common:
+    name: pet_network

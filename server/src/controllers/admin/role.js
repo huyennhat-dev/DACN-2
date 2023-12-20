@@ -11,9 +11,9 @@ const roleController = {
   },
   create: async (req, res) => {
     try {
-      const { name } = req.body;
-      const nameSlug = slug(name);
-      await roleModel.create({ name, slug: nameSlug });
+      const { name, slug } = req.body;
+      // const nameSlug = slug(name);
+      await roleModel.create({ name, slug });
       return res.status(200).json({ status: true });
     } catch (error) {
       return res.status(500).json({ status: false, error });

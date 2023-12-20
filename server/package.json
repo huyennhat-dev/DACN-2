@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "node src/index",
+    "dev": "nodemon src/index"
   },
   "author": "huyennhat.dev",
   "license": "ISC",
@@ -30,6 +30,10 @@
     "slug": "^8.2.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.6",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.23.6",
     "nodemon": "^2.0.21"
   }
 }

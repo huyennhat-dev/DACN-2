@@ -7,6 +7,7 @@ const { categoriesModel } = require("../models/categories");
 const { random } = require("lodash");
 const { productModel } = require("../models/product");
 const { adminModel } = require("../models/admin");
+const { statusModel } = require("../models/status");
 
 router.post("/", async (req, res) => {
   const { url, categories } = req.body;
@@ -16,19 +17,24 @@ router.post("/", async (req, res) => {
   let category;
 
   category = await categoriesModel.findOne({ slug: cateSlug });
+  const status = await statusModel.findOne({ slug: "hoat-dong" });
+  const admin = await adminModel.findOne({
+    username: "shopadmin",
+  });
+  console.log(status);
+  console.log(status._id);
 
   if (!category) {
     category = await categoriesModel.create({
       name: categories,
       slug: cateSlug,
-      status: "645d30d2eb6f40e2906325fa",
+      status: status._id,
     });
   }
 
   try {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
-    const data = [];
 
     const itemUrls = [];
 
@@ -43,8 +49,8 @@ router.post("/", async (req, res) => {
     console.log(itemUrls);
 
     for (let i = 1; i <= itemUrls.length; i++) {
-      const res = await axios.get(itemUrls[i]);
-      const $$ = cheerio.load(res.data);
+      const rs = await axios.get(itemUrls[i]);
+      const $$ = cheerio.load(rs.data);
 
       const name = $$(".product-container .product-info h1.product-title")
         .text()
@@ -63,8 +69,10 @@ router.post("/", async (req, res) => {
         10
       );
 
+      if (price == 0) return res.status(200).json({ status: true });
+
       const sale = (Math.random() * 0.15).toFixed(2);
-      const purchases = random(10,100)
+      const purchases = random(10, 100);
 
       const sortDesc = $$(
         ".product-container .product-info .product-short-description"
@@ -80,8 +88,8 @@ router.post("/", async (req, res) => {
 
       const quantity = random(10, 100);
       const categories = category._id;
-      const status = "645d30d2eb6f40e2906325fa";
-      const extraPerson = "645fd0b6b9c84aa81c7d5a02";
+      const statusId = status._id;
+      const extraPerson = admin._id;
 
       const product = await productModel.create({
         name,
@@ -93,7 +101,7 @@ router.post("/", async (req, res) => {
         purchases,
         description: desc,
         categories,
-        status,
+        status: statusId,
         extraPerson,
       });
 
@@ -109,7 +117,7 @@ router.post("/", async (req, res) => {
       console.log("Crawl success: " + completedRequests);
 
       if (completedRequests == 20) {
-        return res.json("success");
+        return res.status(200).json({ status: true });
       }
       completedRequests++;
     }

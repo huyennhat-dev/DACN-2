@@ -24,7 +24,7 @@ const authController = {
     try {
       const { email, password } = req.body;
 
-      const user = await userModel.findOne({ email }).populate("status");
+      const user = await userModel.findOne({ email }).populate("status").exec()
 
       if (!user) {
         return res.status(400).json({

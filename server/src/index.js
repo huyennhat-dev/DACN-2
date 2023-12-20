@@ -2,12 +2,12 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const connectDB = require("./src/config/dbconnection");
+const connectDB = require("./config/dbconnection");
 const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const routes = require("./src/routes");
+const routes = require("./routes");
 
 connectDB();
 app.use(bodyParser.json({ limit: "100mb" }));

@@ -4,7 +4,7 @@ const router = require("express").Router();
 router.get("/", roleController.index);
 
 // //create
-// router.post("/create", roleController.create);
+router.post("/create", roleController.create);
 
 // //edit
 // router.get("/edit/:id", roleController.edit);

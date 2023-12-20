@@ -39,7 +39,7 @@ const cartController = {
       const uid = req.user.sub.id;
       const { id, quantity } = req.body;
 
-      const pro = await productModel.findById(id).populate("status");
+      const pro = await productModel.findById(id).populate("status").exec();
 
       if (!pro || pro.status.slug != "hoat-dong") return;
 
