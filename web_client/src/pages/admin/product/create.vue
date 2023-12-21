@@ -399,7 +399,7 @@ export default defineComponent({
         inValid = false;
       } else if (
         this.product.author.length < 4 ||
-        this.product.author.length > 100
+        this.product.author.length > 1000
       ) {
         this.errors.author = "Độ dài Mô tả ngắn không hợp lệ!";
         inValid = false;

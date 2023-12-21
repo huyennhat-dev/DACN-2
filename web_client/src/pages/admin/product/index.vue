@@ -1,12 +1,6 @@
 <template>
   <a-card title="Toàn bộ sản phẩm" class="products h-100">
-    <a-table
-      class="h-100"
-      :dataSource="products"
-      :columns="columns"
-      :scroll="{ x: 576 }"
-      bordered
-    >
+    <a-table class="h-100" :dataSource="products" :columns="columns" :scroll="{ x: 576 }" bordered>
       <template #bodyCell="{ column, index, record }">
         <template v-if="column.key === 'index'">
           <span>{{ index + 1 }}</span>
@@ -14,22 +8,11 @@
         <template v-if="column.key === 'photos'">
           <div class="w-100 preview-image-groups d-flex justify-content-center">
             <a-image-preview-group v-if="record.photos.length > 0">
-              <a-image
-                v-for="(image, index) in record.photos"
-                :key="index"
-                :width="100"
-                :height="100"
-                :src="image"
-                class="shadow-full brr-2"
-              />
+              <a-image v-for="(image, index) in record.photos" :key="index" :width="100" :height="100" :src="image"
+                class="shadow-full brr-2 product-image" />
             </a-image-preview-group>
 
-            <img
-              v-if="!record.photos[0]"
-              width="70"
-              class="shadow-full brr-2"
-              src="../../../assets/images/image.png"
-            />
+            <img v-if="!record.photos[0]" width="70" class="shadow-full brr-2" src="../../../assets/images/image.png" />
           </div>
         </template>
         <template v-if="column.key === 'price'">
@@ -43,10 +26,7 @@
           <div class="w-100 d-flex justify-content-center">
             {{ record.quantity }}
           </div>
-          <div
-            v-if="record.quantity < 10"
-            class="text-danger text-center fw-bolder fst-italic"
-          >
+          <div v-if="record.quantity < 10" class="text-danger text-center fw-bolder fst-italic">
             Sắp hết
           </div>
         </template>
@@ -65,23 +45,15 @@
             </a-button>
           </a-tooltip>
           <a-tooltip placement="topRight" title="Chỉnh sửa">
-            <router-link
-              :to="{ name: 'admin-edit-product', params: { id: record._id } }"
-            >
+            <router-link :to="{ name: 'admin-edit-product', params: { id: record._id } }">
               <a-button class="me-0 me-sm-1 mb-1 mb-sm-1" type="primary" ghost>
                 <form-outlined />
               </a-button>
             </router-link>
           </a-tooltip>
           <a-tooltip placement="topRight" title="Xóa sản phẩm">
-            <a-popconfirm
-              title="Bạn có chắc chắn xóa sản phẩm này!"
-              @confirm="deleteProduct(record._id)"
-              okText="Xóa"
-              placement="bottomLeft"
-              okType="danger"
-              cancelText="Hủy"
-            >
+            <a-popconfirm title="Bạn có chắc chắn xóa sản phẩm này!" @confirm="deleteProduct(record._id)" okText="Xóa"
+              placement="bottomLeft" okType="danger" cancelText="Hủy">
               <a-button class="" danger>
                 <delete-outlined />
               </a-button>
@@ -245,14 +217,23 @@ export default defineComponent({
 .products .ant-image-mask-info {
   font-size: 12px;
 }
+
 .products .ant-table-cell:nth-child(8) {
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
+
 .products .ant-table-cell:nth-child(6) {
   position: relative;
 }
+
 .products .preview-image-groups .ant-image:nth-child(n + 2) {
   display: none !important;
+}
+
+.products .product-image {
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
 }
 </style>

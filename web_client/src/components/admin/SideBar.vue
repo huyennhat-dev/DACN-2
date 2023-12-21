@@ -9,13 +9,13 @@
     <div class="side_bar-logo d-flex justify-content-center align-items-center">
       <img
         v-if="!collapsed"
-        src="../../assets/images/logo.png"
+        src="../../assets/images/logo_2.png"
         alt=""
         height="55"
       />
       <img
         v-if="collapsed"
-        src="../../assets/images/logo_2.png"
+        src="../../assets/images/logo.png"
         alt=""
         height="55"
       />
@@ -83,24 +83,24 @@
 
       <a-sub-menu key="admin-product-sub">
         <template #icon><appstore-outlined /></template>
-        <template #title>Sách</template>
+        <template #title>Sản phẩm</template>
         <a-menu-item key="admin-list-products" class="rounded-1 my-0 mt-1">
           <router-link :to="{ name: 'admin-list-products' }">
             <unordered-list-outlined />
-            <span>Toàn bộ sách</span>
+            <span>Toàn bộ sản phẩm</span>
           </router-link>
         </a-menu-item>
         <a-menu-item key="admin-create-product" class="rounded-1 my-1">
           <router-link :to="{ name: 'admin-create-product' }">
             <plus-outlined />
-            <span>Thêm mới sách</span>
+            <span>Thêm mới sản phẩm</span>
           </router-link>
         </a-menu-item>
       </a-sub-menu>
 
       <a-sub-menu key="admin-categories-sub">
         <template #icon><deployment-unit-outlined /></template>
-        <template #title>Thể loại sách</template>
+        <template #title>Thể loại sản phẩm</template>
         <a-menu-item key="admin-list-categories" class="rounded-1 my-0 mt-1">
           <router-link :to="{ name: 'admin-list-categories' }">
             <unordered-list-outlined />

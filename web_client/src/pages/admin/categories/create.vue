@@ -112,7 +112,7 @@ export default defineComponent({
   methods: {
     async setupCategories() {
       try {
-        const res = await axios.get(`${BASE_URL}/categories/create`, {
+        const res = await axios.get(`${BASE_URL}/admin/categories/create`, {
           headers: {
             "x-auth-token": useAdminAuthStore().getToken,
           },
@@ -148,7 +148,7 @@ export default defineComponent({
           message.loading({ content: "Đang tải...", key, duration: 100000 });
 
           const res = await axios.post(
-            `${BASE_URL}/categories/create`,
+            `${BASE_URL}/admin/categories/create`,
             this.categories,
             {
               headers: {

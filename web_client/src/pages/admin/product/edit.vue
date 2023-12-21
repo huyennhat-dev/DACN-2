@@ -21,7 +21,7 @@
                     :src="image"
                     :width="100"
                     :height="100"
-                    class="brr-2 d-block shadow-full"
+                    class="brr-2 d-block shadow-full product-image"
                   />
 
                   <div @click="removeImage(index)" class="btn-image-close">
@@ -427,7 +427,7 @@ export default defineComponent({
         inValid = false;
       } else if (
         this.product.author.length < 4 ||
-        this.product.author.length > 100
+        this.product.author.length > 1000
       ) {
         this.errors.author = "Độ dài mô tả ngắn không hợp lệ!";
         inValid = false;
@@ -590,5 +590,11 @@ export default defineComponent({
   display: flex;
   cursor: pointer;
   box-shadow: 0px 0px 4px 1px rgba(255, 0, 0, 0.56) !important;
+}
+
+.product .product-image {
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
 }
 </style>

@@ -3,7 +3,7 @@ const orderStatusController = require("../../controllers/admin/orderStatus");
 const router = require("express").Router();
 
 // //create
-// router.post("/create", orderStatusController.create);
+router.post("/create", orderStatusController.create);
 
 // //edit
 // router.get("/edit/:id", orderStatusController.edit);

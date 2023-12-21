@@ -1,9 +1,6 @@
 <template>
   <div class="position-relative">
-    <a-card
-      :title="'Chi tiết đơn hàng : ' + this.$route.params.id"
-      class="order-detail h-100"
-    >
+    <a-card :title="'Chi tiết đơn hàng : ' + this.$route.params.id" class="order-detail h-100">
       <div v-if="order != null" class="row my-4">
         <form @submit.prevent="updateOrder()">
           <div class="col-12">
@@ -41,30 +38,14 @@
                 </div>
                 <div class="px-4 d-flex">
                   <p class="fs-6">Trạng thái :</p>
-                  <a-select
-                    style="width: 200px"
-                    class="ms-2 brr-5"
-                    :options="orderStatus"
-                    :filter-option="filterOption"
-                    v-model:value="statusId"
-                  />
+                  <a-select style="width: 200px" class="ms-2 brr-5" :options="orderStatus" :filter-option="filterOption"
+                    v-model:value="statusId" />
                 </div>
                 <div class="px-4 w-100">
-                  <a-button
-                    class="brr-5"
-                    ghost
-                    type="primary"
-                    danger
-                    htmlType="submit"
-                  >
+                  <a-button class="brr-5" ghost type="primary" danger htmlType="submit">
                     Cập nhật
                   </a-button>
-                  <a-button
-                    @click="showModal"
-                    class="brr-5 ms-2"
-                    ghost
-                    type="primary"
-                  >
+                  <a-button @click="showModal" class="brr-5 ms-2" ghost type="primary">
                     Xuất hóa đơn
                   </a-button>
                 </div>
@@ -72,38 +53,20 @@
             </div>
           </div>
         </form>
-        <a-table
-          class="h-100"
-          :dataSource="order.products"
-          :columns="columns"
-          :scroll="{ x: 576 }"
-          bordered
-        >
+        <a-table class="h-100" :dataSource="order.products" :columns="columns" :scroll="{ x: 576 }" bordered>
           <template #bodyCell="{ column, index, record }">
             <template v-if="column.key == 'index'">
               <span>{{ index + 1 }}</span>
             </template>
             <template v-if="column.key == 'photo'">
-              <div
-                class="w-100 preview-image-groups d-flex justify-content-center"
-              >
+              <div class="w-100 preview-image-groups d-flex justify-content-center">
                 <a-image-preview-group v-if="record.product.photos.length > 0">
-                  <a-image
-                    v-for="(image, index) in record.product.photos"
-                    :key="index"
-                    :width="100"
-                    :height="100"
-                    :src="image"
-                    class="shadow-full brr-2"
-                  />
+                  <a-image v-for="(image, index) in record.product.photos" :key="index" :width="100" :height="100"
+                    :src="image" class="shadow-full brr-2 " style="width: 100px; height: 100px; object-fit: cover;" />
                 </a-image-preview-group>
 
-                <img
-                  v-if="!record.product.photos[0]"
-                  width="70"
-                  class="shadow-full brr-2"
-                  src="../../../assets/images/image.png"
-                />
+                <img v-if="!record.product.photos[0]" width="70" class="shadow-full brr-2"
+                  src="../../../assets/images/image.png" />
               </div>
             </template>
             <template v-if="column.key == 'name'">
@@ -119,17 +82,10 @@
         </a-table>
       </div>
     </a-card>
-    <a-modal
-      v-model:visible="visible"
-      title="Hóa đơn"
-      width="80%"
-      wrap-class-name="full-modal"
-      @ok="downloadPDF"
-      okText="Xuất hóa đơn"
-      okType="danger"
-    >
+    <a-modal v-model:visible="visible" title="Hóa đơn" width="80%" wrap-class-name="full-modal" @ok="downloadPDF"
+      okText="Xuất hóa đơn" okType="danger">
       <div id="invoice">
-        <the-bill :order="order"/>
+        <the-bill :order="order" />
       </div>
     </a-modal>
   </div>
@@ -223,9 +179,8 @@ export default defineComponent({
 
       const formattedTime = `
       ${gmtPlus7Time.getHours()}:${gmtPlus7Time.getMinutes()}
-      ${gmtPlus7Time.getDate()}-${
-        gmtPlus7Time.getMonth() + 1
-      }-${gmtPlus7Time.getFullYear()}`;
+      ${gmtPlus7Time.getDate()}-${gmtPlus7Time.getMonth() + 1
+        }-${gmtPlus7Time.getFullYear()}`;
       return formattedTime;
     },
     async setupOrderDetail() {

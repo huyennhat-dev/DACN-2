@@ -15,20 +15,19 @@ services:
 
   backend:
     container_name: pet_server
-    image: pet_server:v1
     build:
       context: ../server
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - 3010:3010
-    volumes:
-      - ../server:/app/backend
     networks:
       - common
     environment:
       MONGODB_URL: 'mongodb://mongo/petdb'
       PORT: 3010
+      CLIENT_URL: 'https://huyennhat.click'
+
     expose:
       - 3010
 
@@ -36,9 +35,12 @@ services:
     image: nginx:1.23.0-alpine
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ../web_client/dist:/usr/share/nginx/html
       - ./default.conf:/etc/nginx/conf.d/default.conf
+    env_file:
+      - ../web_client/.env
     networks:
       - common
 

@@ -161,7 +161,7 @@ export default defineComponent({
           message.loading({ content: "Đang tải...", key, duration: 100000 });
 
           const res = await axios.put(
-            `${BASE_URL}/categories/edit/${this.route.params.id}`,
+            `${BASE_URL}/admin/categories/edit/${this.route.params.id}`,
             this.categories,
             {
               headers: {
