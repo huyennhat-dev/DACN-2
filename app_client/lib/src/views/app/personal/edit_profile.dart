@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -53,7 +54,7 @@ class _EditProfileState extends State<EditProfile> {
     super.dispose();
   }
 
-  void _getFromgallery() async {
+  void _getFromGallery() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
       source: ImageSource.gallery,
       maxHeight: 1080,
@@ -85,9 +86,19 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
+  Future<void> _requestPhotoPermission() async {
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+      _getFromGallery();
+    } else {
+      print("Photo access denied by the user");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -119,7 +130,7 @@ class _EditProfileState extends State<EditProfile> {
       ),
       body: Container(
         constraints: const BoxConstraints.expand(),
-        padding: const EdgeInsets.all(kDefautPadding / 2),
+        padding: const EdgeInsets.all(kDefaultPadding / 2),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/bg.png'),
@@ -131,11 +142,11 @@ class _EditProfileState extends State<EditProfile> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Container(
-              width: size.width - kDefautPadding,
-              height: size.height - 55 - 2 * kDefautPadding,
-              padding: const EdgeInsets.all(kDefautPadding / 2),
+              width: size.width - kDefaultPadding,
+              height: size.height - 55 - 2 * kDefaultPadding,
+              padding: const EdgeInsets.all(kDefaultPadding / 2),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(kDefautPadding / 2),
+                  borderRadius: BorderRadius.circular(kDefaultPadding / 2),
                   color: Colors.white),
               child: BlocBuilder<UserBloc, UserState>(
                 builder: (context, state) {
@@ -156,7 +167,15 @@ class _EditProfileState extends State<EditProfile> {
                                       bottom: 5,
                                       right: 15,
                                       child: GestureDetector(
-                                        onTap: () => _getFromgallery(),
+                                        onTap: () async {
+                                          final photoStatus =
+                                              await Permission.photos.status;
+                                          if (photoStatus.isGranted) {
+                                            _getFromGallery();
+                                          } else {
+                                            await _requestPhotoPermission();
+                                          }
+                                        },
                                         child: Container(
                                           height: 35,
                                           width: 35,
@@ -223,7 +242,8 @@ class _EditProfileState extends State<EditProfile> {
                           bottom: 0,
                           child: state.isLoading == true
                               ? LoadingWidget(
-                                  height: size.height - 55 - 2 * kDefautPadding)
+                                  height:
+                                      size.height - 55 - 2 * kDefaultPadding)
                               : Container())
                     ],
                   );
@@ -253,7 +273,7 @@ class _EditProfileState extends State<EditProfile> {
   //             icon: const Icon(Icons.camera_alt_rounded, size: 30),
   //           ),
   //           IconButton(
-  //             onPressed: () => _getFromgallery(),
+  //             onPressed: () => _getFromGallery(),
   //             icon: const Icon(
   //               Icons.image_rounded,
   //               size: 30,
@@ -267,8 +287,8 @@ class _EditProfileState extends State<EditProfile> {
           String hText, IconData icon) =>
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: const EdgeInsets.only(bottom: kDefautPadding / 1),
-        width: size.width - 4 * kDefautPadding,
+        margin: const EdgeInsets.only(bottom: kDefaultPadding / 1),
+        width: size.width - 4 * kDefaultPadding,
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 1, color: kBorderColor),

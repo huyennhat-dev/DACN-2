@@ -92,10 +92,10 @@ class _SearchPageState extends State<SearchPage> {
                       height: 55,
                       width: size.width,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: kDefautPadding / 2),
+                          horizontal: kDefaultPadding / 2),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        boxShadow: [Shadown.shadown],
+                        boxShadow: [Shadow.shadow],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -179,7 +179,7 @@ class _SearchPageState extends State<SearchPage> {
                       child: Container(
                           width: size.width,
                           alignment: Alignment.center,
-                          padding: const EdgeInsets.all(kDefautPadding / 2),
+                          padding: const EdgeInsets.all(kDefaultPadding / 2),
                           child: BlocBuilder<SearchBloc, SearchState>(
                             builder: (context, state) {
                               return Column(
@@ -251,8 +251,8 @@ class _SearchPageState extends State<SearchPage> {
         flex: 1,
         child: Container(
           height: 40,
-          padding: const EdgeInsets.only(left: kDefautPadding / 2),
-          margin: const EdgeInsets.symmetric(horizontal: kDefautPadding / 2),
+          padding: const EdgeInsets.only(left: kDefaultPadding / 2),
+          margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
           decoration: BoxDecoration(
               border: Border.all(color: kBorderColor, width: 1),
               borderRadius: BorderRadius.circular(5)),

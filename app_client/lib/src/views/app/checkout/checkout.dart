@@ -1,6 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
+import 'package:fluttertoast/fluttertoast.dart';
+import '/src/helper/toast.dart';
 
-import 'package:another_flushbar/flushbar.dart';
 import '/src/model/cart.dart';
 import '/src/repo/cart.dart';
 import '/src/views/app/bloc/user_bloc.dart';
@@ -12,7 +12,6 @@ import 'package:lottie/lottie.dart';
 
 import '../../../util/behavior.dart';
 import '../../../util/button.dart';
-import '../../../util/flush_bar.dart';
 import '../../constants.dart';
 import '../bloc/cart_bloc.dart';
 import '../component/cart_body.dart';
@@ -42,25 +41,25 @@ class _CheckOutPageState extends State<CheckOutPage> {
     final cartBloc = BlocProvider.of<CartBloc>(context);
     final userBloc = BlocProvider.of<UserBloc>(context);
     if (cartBloc.state.carts.isEmpty) {
-      return FlushBar()
-          .showFlushBar(context, "warning", "Chưa có mặt hàng nào!");
+      ToastMsg.toast("Giỏ hàng rỗng", ToastGravity.BOTTOM);
+      return;
     }
-    if (userBloc.state.user.address == "") {
-      return FlushBar()
-          .showFlushBar(context, "warning", "Địa chỉ nhận hàng đang trống!");
+    if (userBloc.state.user.address == null) {
+      ToastMsg.toast("Địa chỉ nhận hàng trống", ToastGravity.BOTTOM);
+      return;
     }
-    if (userBloc.state.user.phone == "") {
-      return FlushBar().showFlushBar(
-          context, "warning", "Số điện thoại nhận hàng đang trống!");
+    if (userBloc.state.user.phone == null) {
+      ToastMsg.toast("Số điện thoại nhận hàng trống", ToastGravity.BOTTOM);
     }
     switch (selectPaymentBloc.key) {
       case "":
-        FlushBar()
-            .showFlushBar(context, "warning", "Phương thức thanh toán trống!");
+        ToastMsg.toast("Phương thức thanh toán trống", ToastGravity.BOTTOM);
+
         break;
       case "COD":
-        FlushBar().showFlushBar(
-            context, "warning", "Phương thức thanh toán này không hỗ trợ!");
+        ToastMsg.toast(
+            "Phương thức thanh toán không hỗ trợ", ToastGravity.BOTTOM);
+
         break;
       case "VNP":
         List<Map<String, dynamic>> products = [];
@@ -143,14 +142,14 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 sliver: SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: kDefautPadding / 2),
+                        horizontal: kDefaultPadding / 2),
                     child: BlocBuilder<CartBloc, CartState>(
                       builder: (context, state) {
                         return Container(
-                          padding: const EdgeInsets.all(kDefautPadding / 2),
+                          padding: const EdgeInsets.all(kDefaultPadding / 2),
                           decoration: BoxDecoration(
                             borderRadius:
-                                BorderRadius.circular(kDefautPadding / 2),
+                                BorderRadius.circular(kDefaultPadding / 2),
                             color: Colors.white,
                           ),
                           child: cartBloc.state.carts.isNotEmpty
@@ -171,13 +170,14 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(height: 5),
                                     Column(
                                       children: state.carts
                                           .map((e) => CartItem(
                                                 cartBloc: cartBloc,
                                                 data: e,
-                                                width:
-                                                    size.width - kDefautPadding,
+                                                width: size.width -
+                                                    kDefaultPadding,
                                               ))
                                           .toList(),
                                     ),
@@ -185,7 +185,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                 )
                               : Container(
                                   height:
-                                      size.height - 55 - 3.5 * kDefautPadding,
+                                      size.height - 55 - 3.5 * kDefaultPadding,
                                   alignment: Alignment.center,
                                   child: Center(
                                       child: Lottie.asset(
@@ -202,9 +202,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     top: 10, left: 10, bottom: 0, right: 10),
                 sliver: SliverToBoxAdapter(
                   child: Container(
-                    padding: const EdgeInsets.all(kDefautPadding / 2),
+                    padding: const EdgeInsets.all(kDefaultPadding / 2),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(kDefautPadding / 2),
+                      borderRadius: BorderRadius.circular(kDefaultPadding / 2),
                       color: Colors.white,
                     ),
                     child: BlocBuilder<UserBloc, UserState>(
@@ -285,13 +285,13 @@ class _CheckOutPageState extends State<CheckOutPage> {
               ),
               cartBloc.state.carts.isNotEmpty
                   ? SliverPadding(
-                      padding: const EdgeInsets.all(kDefautPadding / 2),
+                      padding: const EdgeInsets.all(kDefaultPadding / 2),
                       sliver: SliverToBoxAdapter(
                         child: Container(
-                          padding: const EdgeInsets.all(kDefautPadding / 2),
+                          padding: const EdgeInsets.all(kDefaultPadding / 2),
                           decoration: BoxDecoration(
                             borderRadius:
-                                BorderRadius.circular(kDefautPadding / 2),
+                                BorderRadius.circular(kDefaultPadding / 2),
                             color: Colors.white,
                           ),
                           child: Column(
@@ -319,7 +319,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       height: 40,
-                                      width: size.width - 2 * kDefautPadding,
+                                      width: size.width - 2 * kDefaultPadding,
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -389,7 +389,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                               ),
                               const SizedBox(height: 10),
                               Container(
-                                width: size.width - 2 * kDefautPadding,
+                                width: size.width - 2 * kDefaultPadding,
                                 alignment: Alignment.center,
                                 child: Center(
                                   child: CustomButton(
@@ -415,7 +415,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
   }
 
   Widget _buildAddressText(Size size, String text) => Container(
-      width: size.width - 3 * kDefautPadding - 5,
+      width: size.width - 3 * kDefaultPadding - 5,
       padding: const EdgeInsets.symmetric(horizontal: 15),
       margin: const EdgeInsets.only(bottom: 3),
       child: Text(
@@ -428,11 +428,11 @@ class _CheckOutPageState extends State<CheckOutPage> {
       ));
 
   Widget _buildCheckOutText(Size size, String text, double price) => SizedBox(
-        width: size.width - 3 * kDefautPadding,
+        width: size.width - 3 * kDefaultPadding,
         child: Row(
           children: [
             SizedBox(
-              width: (size.width - 3 * kDefautPadding) / 2,
+              width: (size.width - 3 * kDefaultPadding) / 2,
               child: Text(
                 text,
                 style: GoogleFonts.openSans(
@@ -443,7 +443,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
               ),
             ),
             SizedBox(
-              width: (size.width - 3 * kDefautPadding) / 2,
+              width: (size.width - 3 * kDefaultPadding) / 2,
               child: Text(
                 currencyFormatter.format(price),
                 style: GoogleFonts.openSans(

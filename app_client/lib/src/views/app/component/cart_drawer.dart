@@ -47,8 +47,8 @@ class _CartWidgetState extends State<CartWidget> {
         width: size.width - 20,
         alignment: Alignment.center,
         padding: const EdgeInsets.only(
-          top: kDefautPadding / 1.5,
-          bottom: kDefautPadding / 2.5,
+          top: kDefaultPadding / 1.5,
+          bottom: kDefaultPadding / 2.5,
         ),
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: kBorderColor, width: 1)),
@@ -95,7 +95,7 @@ class _CartWidgetState extends State<CartWidget> {
   Widget _buildHeader(Size size, BuildContext context) => Container(
         height: 60,
         width: size.width * 0.85 - 20,
-        padding: const EdgeInsets.only(top: kDefautPadding / 1),
+        padding: const EdgeInsets.only(top: kDefaultPadding / 1),
         decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: kBorderColor, width: 1))),
         child: Row(

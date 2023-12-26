@@ -37,10 +37,10 @@ class _OrderBodyState extends State<OrderBody> {
     final Size size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width - kDefautPadding,
-      padding: const EdgeInsets.symmetric(vertical: kDefautPadding / 2),
+      width: size.width - kDefaultPadding,
+      padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(kDefautPadding / 2),
+        borderRadius: BorderRadius.circular(kDefaultPadding / 2),
         color: Colors.white,
       ),
       child: BlocBuilder<UserBloc, UserState>(
@@ -53,7 +53,7 @@ class _OrderBodyState extends State<OrderBody> {
                     Container(
                       margin: const EdgeInsets.only(bottom: 5),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: kDefautPadding / 2),
+                          horizontal: kDefaultPadding / 2),
                       child: Text(
                         'Danh sách đơn hàng',
                         style: GoogleFonts.openSans(
@@ -68,7 +68,7 @@ class _OrderBodyState extends State<OrderBody> {
                   ],
                 )
               : Container(
-                  height: size.height - 2 * 55 - 3 * kDefautPadding,
+                  height: size.height - 2 * 55 - 3 * kDefaultPadding,
                 );
         },
       ),
@@ -79,7 +79,7 @@ class _OrderBodyState extends State<OrderBody> {
     final orderTabBloc = BlocProvider.of<OrderTabBloc>(context);
 
     return SizedBox(
-      height: size.height - 55 - kDefautPadding - 160,
+      height: size.height - 55 - kDefaultPadding - 160,
       child: ScrollConfiguration(
           behavior: MyBehavior(),
           child: BlocBuilder<OrderTabBloc, OrderTabState>(
@@ -122,13 +122,13 @@ class _OrderBodyState extends State<OrderBody> {
     TextStyle textStyle = GoogleFonts.openSans(
         fontSize: 14, fontWeight: FontWeight.w400, color: textColor);
     return Container(
-      width: size.width - 2 * kDefautPadding,
+      width: size.width - 2 * kDefaultPadding,
       padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [Shadown.shadown],
+        boxShadow: [Shadow.shadow],
       ),
       child: Column(
         children: [
@@ -158,7 +158,7 @@ class _OrderBodyState extends State<OrderBody> {
           const SizedBox(height: 5),
           for (int i = 0; i < data.products!.length; i++)
             Container(
-              width: size.width - 3 * kDefautPadding,
+              width: size.width - 3 * kDefaultPadding,
               margin: const EdgeInsets.only(bottom: 7),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -258,9 +258,9 @@ class _OrderBodyState extends State<OrderBody> {
     final orderTabBloc = BlocProvider.of<OrderTabBloc>(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefautPadding / 2),
+      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
       child: Container(
-        width: size.width - 2 * kDefautPadding,
+        width: size.width - 2 * kDefaultPadding,
         height: 40,
         decoration: const BoxDecoration(
           border: Border(

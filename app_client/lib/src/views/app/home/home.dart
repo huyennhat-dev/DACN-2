@@ -49,11 +49,11 @@ class _HomePageState extends State<HomePage> {
                 pinned: true,
                 backgroundColor: Colors.white,
                 flexibleSpace: AppHeader(
-                    acctionLeft: Container(
+                    actionLeft: Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/logo_2.png'),
-                        fit: BoxFit.cover),
+                        fit: BoxFit.fitWidth),
                   ),
                 )),
                 automaticallyImplyLeading: false,

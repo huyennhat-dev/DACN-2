@@ -14,7 +14,7 @@ const kWarninngColor = Color(0xFFF2B40A);
 const kErrorColor = Color(0xFFED1616);
 const kSuccessColor = Color(0xFF4BB543);
 
-const kDefautPadding = 20;
+const kDefaultPadding = 20;
 
 class SnackBarStyle {
   static TextStyle kTitle = GoogleFonts.mulish(
@@ -23,8 +23,8 @@ class SnackBarStyle {
       color: kTertiaryColor, fontSize: 16, fontWeight: FontWeight.w400);
 }
 
-class Shadown {
-  static BoxShadow shadown = const BoxShadow(
+class Shadow {
+  static BoxShadow shadow = const BoxShadow(
       color: Color.fromARGB(60, 101, 101, 101),
       blurRadius: 10,
       offset: Offset(0, 0),

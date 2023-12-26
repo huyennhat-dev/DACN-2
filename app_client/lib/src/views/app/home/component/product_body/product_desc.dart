@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants.dart';
 
-class ProductDeltailDesc extends StatelessWidget {
-  const ProductDeltailDesc({super.key, this.desc});
+class ProductDetailDesc extends StatelessWidget {
+  const ProductDetailDesc({super.key, this.desc});
 
   final String? desc;
 
@@ -14,24 +14,24 @@ class ProductDeltailDesc extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      width: size.width - kDefautPadding,
+      width: size.width - kDefaultPadding,
       padding: const EdgeInsets.symmetric(
-          vertical: kDefautPadding / 1, horizontal: kDefautPadding * 1),
+          vertical: kDefaultPadding / 1, horizontal: kDefaultPadding * 1),
       margin: const EdgeInsets.only(
-        bottom: kDefautPadding / 1,
-        left: kDefautPadding / 2,
-        right: kDefautPadding / 2,
+        bottom: kDefaultPadding / 1,
+        left: kDefaultPadding / 2,
+        right: kDefaultPadding / 2,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(kDefautPadding / 2),
+        borderRadius: BorderRadius.circular(kDefaultPadding / 2),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Giới thiệu về cuốn sách",
+            "Giới thiệu về sản phẩm",
             style: GoogleFonts.openSans(
                 fontSize: 20, fontWeight: FontWeight.w600, color: textColor),
           ),

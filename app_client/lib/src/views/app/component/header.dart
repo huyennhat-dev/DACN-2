@@ -8,9 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../bloc/user_bloc.dart';
 
 class AppHeader extends StatefulWidget {
-  const AppHeader({super.key, this.acctionLeft});
+  const AppHeader({super.key, this.actionLeft});
 
-  final Widget? acctionLeft;
+  final Widget? actionLeft;
 
   @override
   State<AppHeader> createState() => _AppHeaderState();
@@ -32,10 +32,10 @@ class _AppHeaderState extends State<AppHeader> {
     return Container(
       height: 55,
       width: size.width,
-      padding: const EdgeInsets.symmetric(horizontal: kDefautPadding / 2),
+      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [Shadown.shadown],
+        boxShadow: [Shadow.shadow],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,8 +109,8 @@ class _AppHeaderState extends State<AppHeader> {
         flex: 1,
         child: Container(
           height: 40,
-          padding: const EdgeInsets.only(left: kDefautPadding / 2),
-          margin: const EdgeInsets.symmetric(horizontal: kDefautPadding / 2),
+          padding: const EdgeInsets.only(left: kDefaultPadding / 2),
+          margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
           decoration: BoxDecoration(
               border: Border.all(color: kBorderColor, width: 1),
               borderRadius: BorderRadius.circular(5)),
@@ -148,10 +148,10 @@ class _AppHeaderState extends State<AppHeader> {
       );
 
   Widget _actionLeft(BuildContext context) => SizedBox(
-      width: 50,
+      width: widget.actionLeft != null ? 60 : 50,
       height: 50,
-      child: widget.acctionLeft != null
-          ? widget.acctionLeft!
+      child: widget.actionLeft != null
+          ? widget.actionLeft!
           : _iconButton(
               Icons.arrow_back_ios, 26, () => Navigator.pop(context)));
 }

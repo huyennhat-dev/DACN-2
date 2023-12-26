@@ -14,7 +14,7 @@ class Products extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: kDefautPadding / 2),
+      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -55,14 +55,15 @@ class ProductItem extends StatelessWidget {
 
   Widget _buildButton(BuildContext context, double width) => Container(
         alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(horizontal: kDefautPadding / 1.5),
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 1.5),
         child: CustomButton(
           onPressed: () => addToCart(context),
           width: width - 40,
           height: 35,
+          iconSize: 18,
           icon: Icons.shopping_bag_outlined,
           text: "Thêm vào giỏ",
-          textSize: 14,
+          textSize: 13,
         ),
       );
 
@@ -77,7 +78,7 @@ class ProductItem extends StatelessWidget {
             Text(
               product!.name.toString(),
               style: GoogleFonts.openSans(
-                  fontSize: 14, fontWeight: FontWeight.w500, color: textColor),
+                  fontSize: 13, fontWeight: FontWeight.w500, color: textColor),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -89,7 +90,7 @@ class ProductItem extends StatelessWidget {
                 Text(
                   product!.star.toString(),
                   style: GoogleFonts.openSans(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: textColor.withOpacity(0.7)),
                 ),
@@ -103,7 +104,7 @@ class ProductItem extends StatelessWidget {
                 Text(
                   "| Đã bán ${product!.purchases}",
                   style: GoogleFonts.openSans(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: textColor.withOpacity(0.7)),
                 ),
@@ -117,7 +118,7 @@ class ProductItem extends StatelessWidget {
                   currencyFormatter.format(
                       product!.price! - (product!.price! * product!.sale!)),
                   style: GoogleFonts.openSans(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor),
                 ),
@@ -127,7 +128,7 @@ class ProductItem extends StatelessWidget {
                       ? "- ${(product!.sale! * 100).toStringAsFixed(0)}%"
                       : "",
                   style: GoogleFonts.openSans(
-                      fontSize: 13,
+                      fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: kPrimaryColor),
                 ),

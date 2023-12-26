@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lovepet/src/model/rate.dart';
 
 import '../../../model/product.dart';
+import '../../../model/user.dart';
 import '../../../repo/product.dart';
 
 abstract class ProductEvent {}
@@ -29,6 +31,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       final star = data['star'].toDouble();
       final photos = List<String>.from(
           data['photos']?.map((photo) => photo.toString()) ?? []);
+      List<Rate> rates = [];
+      if (data['rates'] is List<dynamic>) {
+        rates = (data['rates'] as List<dynamic>).map((rateData) {
+          return Rate(
+            sId: rateData['_id'],
+            user: User(
+              name: rateData['user']['name'],
+              photo: rateData['user']['photo'],
+            ),
+            product: rateData['product'],
+            star: rateData['star'],
+            content: rateData['content'],
+            createdAt: rateData['createdAt'],
+            updatedAt: rateData['updatedAt'],
+          );
+        }).toList();
+      }
+      final Map<String, dynamic>? categoriesData = data['categories'];
 
       emit(ProductState(
           product: Product(
@@ -39,8 +59,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               price: data['price'],
               quantity: data['quantity'],
               purchases: data['purchases'],
+              categories: Categories(
+                sId: categoriesData!['_id'],
+                name: categoriesData['name'],
+                slug: categoriesData['slug'],
+              ),
               sale: sale,
               star: star,
+              rates: rates,
               description: data['description'])));
     } catch (e) {
       throw Exception(e);

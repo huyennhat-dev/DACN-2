@@ -80,8 +80,8 @@ class CartItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               child: CachedNetworkImage(
                 imageUrl: data.product!.photos![0],
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 fit: BoxFit.cover,
                 errorWidget: (context, url, error) =>
                     const Icon(Icons.error, color: kPrimaryColor),
@@ -89,22 +89,51 @@ class CartItem extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                left: kDefautPadding / 2, top: kDefautPadding / 5),
+            padding: const EdgeInsets.only(left: kDefaultPadding / 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: width - 160,
-                  child: Text(
-                    data.product!.name!,
-                    style: GoogleFonts.openSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: textColor),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  width: width - 110,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: width - 140,
+                        child: Text(
+                          data.product!.name!,
+                          style: GoogleFonts.openSans(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: textColor),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                          width: 30,
+                          alignment: Alignment.topRight,
+                          child: CustomButton(
+                            height: 30,
+                            width: 30,
+                            onPressed: () async {
+                              if (await confirm(context,
+                                  content: Text(
+                                    "Bạn có muốn xóa?",
+                                    style: GoogleFonts.openSans(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: textColor),
+                                  ))) {
+                                return cartBloc
+                                    .add(RemoveFromCartEvent(data.product!));
+                              }
+                            },
+                            padding: 0,
+                            icon: Icons.delete_outline_outlined,
+                            iconSize: 20,
+                          ))
+                    ],
                   ),
                 ),
                 RichText(
@@ -112,8 +141,8 @@ class CartItem extends StatelessWidget {
                       text: currencyFormatter.format((data.product!.price! -
                           (data.product!.price! * data.product!.sale!))),
                       style: GoogleFonts.openSans(
-                        color: Colors.black, // Text color
-                        fontSize: 16, // Font size
+                        color: kPrimaryColor, // Text color
+                        fontSize: 14, // Font size
                         fontWeight: FontWeight.w600, // Font weight
                       ),
                       children: [
@@ -122,7 +151,7 @@ class CartItem extends StatelessWidget {
                           text: currencyFormatter.format(data.product!.price),
                           style: GoogleFonts.openSans(
                               color: Colors.black54, // Text color
-                              fontSize: 13, // Font size
+                              fontSize: 12, // Font size
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.italic,
                               decoration: TextDecoration.lineThrough),
@@ -156,6 +185,7 @@ class CartItem extends StatelessWidget {
                       radius: 50,
                       color: Colors.black54,
                       icon: Icons.remove,
+                      iconSize: 18,
                     ),
                     Container(
                       width: 70,
@@ -187,28 +217,6 @@ class CartItem extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-              height: 40,
-              width: 40,
-              child: CustomButton(
-                height: 40,
-                width: 40,
-                onPressed: () async {
-                  if (await confirm(context,
-                      content: Text(
-                        "Bạn có muốn xóa?",
-                        style: GoogleFonts.openSans(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: textColor),
-                      ))) {
-                    return cartBloc.add(RemoveFromCartEvent(data.product!));
-                  }
-                },
-                padding: 0,
-                icon: Icons.delete_outline_outlined,
-                iconSize: 25,
-              ))
         ],
       ),
     );

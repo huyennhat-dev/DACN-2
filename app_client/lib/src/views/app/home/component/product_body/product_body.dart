@@ -1,3 +1,5 @@
+import 'package:flutter_html/flutter_html.dart';
+
 import '/src/util/button.dart';
 import '/src/views/app/bloc/cart_bloc.dart';
 import '/src/views/app/bloc/counter_bloc.dart';
@@ -53,14 +55,14 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
         fontSize: 14, fontWeight: FontWeight.w400, color: kButtonColor);
     return Container(
       width: size.width,
-      padding: const EdgeInsets.all(kDefautPadding / 2),
+      padding: const EdgeInsets.all(kDefaultPadding / 2),
       child: Container(
-        width: size.width - kDefautPadding,
+        width: size.width - kDefaultPadding,
         alignment: Alignment.topCenter,
-        padding: const EdgeInsets.all(kDefautPadding / 2),
+        padding: const EdgeInsets.all(kDefaultPadding / 2),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(kDefautPadding / 2),
+          borderRadius: BorderRadius.circular(kDefaultPadding / 2),
         ),
         child: widget.product.sId != null
             ? Column(
@@ -68,25 +70,24 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: size.width - 2 * kDefautPadding,
-                      height: size.width - 2 * kDefautPadding,
+                      width: size.width - 2 * kDefaultPadding,
+                      height: size.width - 2 * kDefaultPadding,
                       margin:
-                          const EdgeInsets.only(bottom: kDefautPadding / 1.5),
+                          const EdgeInsets.only(bottom: kDefaultPadding / 1.5),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius:
-                              BorderRadius.circular(kDefautPadding / 4),
-                          boxShadow: [Shadown.shadown]),
+                              BorderRadius.circular(kDefaultPadding / 4),
+                          boxShadow: [Shadow.shadow]),
                       child: StreamBuilder<int>(
                           stream: _bloc.imageIndexStream,
-                          initialData:
-                              0, // Provide initial data for the image index
+                          initialData: 0,
                           builder: (context, snapshot) => _buildImage(
-                              size.width - 2 * kDefautPadding,
+                              size.width - 2 * kDefaultPadding,
                               widget.product.photos![snapshot.data ?? 0]))),
                   SizedBox(
-                    width: size.width - 2 * kDefautPadding,
-                    height: size.width / 5 + 4,
+                    width: size.width - 2 * kDefaultPadding,
+                    height: size.width / 6 + 4,
                     child: ScrollConfiguration(
                       behavior: MyBehavior(),
                       child: ListView.builder(
@@ -101,14 +102,14 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                             builder: (context, snapshot) => Container(
                               padding: const EdgeInsets.all(1),
                               margin: const EdgeInsets.only(
-                                  right: kDefautPadding / 2),
+                                  right: kDefaultPadding / 2),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: snapshot.data == index
                                       ? Border.all(
                                           color: kPrimaryColor, width: 1)
                                       : null),
-                              child: _buildImage(size.width / 5,
+                              child: _buildImage(size.width / 6,
                                   widget.product.photos![index]),
                             ),
                           ),
@@ -117,13 +118,13 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(kDefautPadding / 1),
+                    padding: const EdgeInsets.all(kDefaultPadding / 2),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: size.width - kDefautPadding * 3,
+                          width: size.width - kDefaultPadding * 2,
                           child: Text(
                             widget.product.name!,
                             style: GoogleFonts.openSans(
@@ -144,23 +145,10 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                                 direction: Axis.horizontal),
                             const SizedBox(width: 5),
                             Text(
-                              "(60 đánh giá) | Đã bán ${widget.product.purchases}",
+                              "(${widget.product.rates!.length} đánh giá) | Đã bán ${widget.product.purchases}",
                               style: textSecondaryStyle,
                             ),
                           ],
-                        ),
-                        const SizedBox(height: 10),
-                        RichText(
-                          text: TextSpan(
-                              text: "Tác giả : ",
-                              style: textStyle,
-                              children: [
-                                TextSpan(
-                                    text: widget.product.author,
-                                    style: textPrimaryStyle)
-                              ]),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -231,6 +219,18 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        const SizedBox(height: 10),
+                        Html(
+                          data: widget.product.author,
+                          style: {
+                            "body": Style(
+                                fontSize: const FontSize(14.0),
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'OpenSans',
+                                color: kButtonColor,
+                                wordSpacing: 2)
+                          },
+                        ),
                         const SizedBox(height: 5),
                         RichText(
                           text: TextSpan(
@@ -238,7 +238,7 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                               style: textStyle,
                               children: [
                                 TextSpan(
-                                    text: "Tôn Giáo - Tâm Linh",
+                                    text: "${widget.product.categories!.name}",
                                     style: GoogleFonts.openSans(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -307,9 +307,10 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                             onPressed: () => addToCart(context),
                             icon: Icons.shopping_bag_outlined,
                             text: "Thêm vào giỏ hàng",
-                            width: (size.width - 2 * kDefautPadding) / 2,
+                            width: (size.width - 2 * kDefaultPadding) / 2,
                             height: 40,
-                            textSize: 14,
+                            iconSize: 18,
+                            textSize: 13,
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -355,7 +356,7 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
   }
 
   Widget _buildImage(double width, String imgUrl) => ClipRRect(
-        borderRadius: BorderRadius.circular(kDefautPadding / 4),
+        borderRadius: BorderRadius.circular(kDefaultPadding / 4),
         child: CachedNetworkImage(
           imageUrl: imgUrl,
           height: width,

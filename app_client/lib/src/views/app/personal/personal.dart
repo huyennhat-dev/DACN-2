@@ -81,7 +81,7 @@ class _PersonalPageState extends State<PersonalPage> {
         fontSize: 16, fontWeight: FontWeight.w400, color: textColor);
     return Container(
       constraints: const BoxConstraints.expand(),
-      padding: const EdgeInsets.all(kDefautPadding / 2),
+      padding: const EdgeInsets.all(kDefaultPadding / 2),
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/bg.png'),
@@ -116,10 +116,10 @@ class _PersonalPageState extends State<PersonalPage> {
 
   Widget _buildLogged(BuildContext context, Size size, UserState state) =>
       Container(
-        width: size.width - kDefautPadding,
-        padding: const EdgeInsets.all(kDefautPadding / 2),
+        width: size.width - kDefaultPadding,
+        padding: const EdgeInsets.all(kDefaultPadding / 2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kDefautPadding / 2),
+          borderRadius: BorderRadius.circular(kDefaultPadding / 2),
           color: Colors.white,
         ),
         child: Column(
@@ -144,7 +144,7 @@ class _PersonalPageState extends State<PersonalPage> {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              width: size.width - 2 * kDefautPadding,
+              width: size.width - 2 * kDefaultPadding,
               child: Center(
                 child: Text(
                   state.user.name ?? "",
@@ -179,9 +179,9 @@ class _PersonalPageState extends State<PersonalPage> {
       InkWell(
         onTap: onPressed,
         child: Container(
-          width: size.width - 6 * kDefautPadding,
+          width: size.width - 6 * kDefaultPadding,
           padding: const EdgeInsets.symmetric(
-              vertical: kDefautPadding / 2, horizontal: kDefautPadding / 2),
+              vertical: kDefaultPadding / 2, horizontal: kDefaultPadding / 2),
           decoration: const BoxDecoration(
               border:
                   Border(bottom: BorderSide(color: kBorderColor, width: 1))),

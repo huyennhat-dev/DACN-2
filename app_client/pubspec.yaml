@@ -63,7 +63,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   image_picker: ^0.7.5
   image_cropper: ^1.5.1
-  
+  permission_handler: ^10.0.0
   
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import '/src/model/rate.dart';
+
 class Product {
   String? sId;
   String? name;
@@ -8,7 +10,9 @@ class Product {
   int? purchases;
   double? sale;
   double? star;
+  Categories? categories;
   String? description;
+  List<Rate>? rates;
 
   Product(
       {this.sId,
@@ -19,6 +23,8 @@ class Product {
       this.quantity,
       this.purchases,
       this.sale,
+      this.rates,
+      this.categories,
       this.star,
       this.description});
 
@@ -29,10 +35,12 @@ class Product {
     author = json['author'];
     price = json['price'];
     quantity = json['quantity'];
+    categories = json['categories'];
     purchases = json['purchases'];
     sale = json['sale'];
 
     star = json['star'];
+    rates = json['rates'];
     description = json['description'];
   }
 
@@ -46,8 +54,9 @@ class Product {
     data['quantity'] = quantity;
     data['purchases'] = purchases;
     data['sale'] = sale;
-
+    data['categories'] = categories;
     data['star'] = star;
+    data['rates'] = rates;
     data['description'] = description;
     return data;
   }

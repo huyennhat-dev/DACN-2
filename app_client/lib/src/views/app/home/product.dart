@@ -1,3 +1,5 @@
+import 'package:lovepet/src/views/app/home/component/product_body/product_evaluate.dart';
+
 import '/src/views/app/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +74,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   SliverAppBar(
                     pinned: true,
                     backgroundColor: Colors.white,
-                    flexibleSpace: AppHeader(),
+                    flexibleSpace: const AppHeader(),
                     automaticallyImplyLeading: false,
                     actions: [Container()],
                   ),
@@ -91,8 +93,19 @@ class _ProductDetailState extends State<ProductDetail> {
                     sliver: SliverToBoxAdapter(
                       child: BlocBuilder<ProductBloc, ProductState>(
                         builder: (context, state) {
-                          return ProductDeltailDesc(
+                          return ProductDetailDesc(
                               desc: state.product.description ?? "");
+                        },
+                      ),
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 0),
+                    sliver: SliverToBoxAdapter(
+                      child: BlocBuilder<ProductBloc, ProductState>(
+                        builder: (context, state) {
+                          return ProductEvaluate(
+                              data: state.product.rates ?? []);
                         },
                       ),
                     ),
