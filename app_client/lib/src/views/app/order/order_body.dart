@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-// import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../model/order.dart';
 
@@ -22,14 +20,18 @@ class OrderBody extends StatefulWidget {
 class _OrderBodyState extends State<OrderBody> {
   final currencyFormatter = NumberFormat.currency(locale: 'vi');
   final formattedTime = DateFormat('HH:mm d-M-yyyy');
-  RefreshController refreshController = RefreshController();
+  PageController _pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
-    final orderTabBloc = BlocProvider.of<OrderTabBloc>(context);
-
-    orderTabBloc.add(LoadOrderTabEvent());
     super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -85,8 +87,7 @@ class _OrderBodyState extends State<OrderBody> {
           child: BlocBuilder<OrderTabBloc, OrderTabState>(
             builder: (context, state) {
               return PageView.builder(
-                controller:
-                    PageController(initialPage: state.selectTabIndex ?? 0),
+                controller: _pageController,
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 onPageChanged: (int page) =>
@@ -279,7 +280,10 @@ class _OrderBodyState extends State<OrderBody> {
                   state.orderStatus![index].name!,
                   index,
                   state.selectTabIndex ?? 0,
-                  () => orderTabBloc.add(ChangeTabEvent(selectTabIndex: index)),
+                  () => {
+                    orderTabBloc.add(ChangeTabEvent(selectTabIndex: index)),
+                    _pageController.jumpToPage(index)
+                  },
                 ),
               );
             },

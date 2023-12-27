@@ -22,11 +22,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  int _page = 1;
+  final int _page = 1;
 
   SearchBloc searchBloc = SearchBloc();
   final TextEditingController textEditingController = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -183,13 +183,13 @@ class _SearchPageState extends State<SearchPage> {
                           child: BlocBuilder<SearchBloc, SearchState>(
                             builder: (context, state) {
                               return Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                     width: size.width - 20,
                                     child: Text(
-                                      "Sách đã tìm thấy",
+                                      "Kết quả đã tìm thấy",
                                       style: GoogleFonts.openSans(
                                           color: textColor,
                                           fontSize: 18,

@@ -1,10 +1,33 @@
 import 'package:flutter/material.dart';
+import '/src/views/app/order/order_tab_bloc.dart';
 
 import '../component/header.dart';
 import 'order_body.dart';
 
-class OrderPage extends StatelessWidget {
+class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
+
+  @override
+  State<OrderPage> createState() => _OrderPageState();
+}
+
+class _OrderPageState extends State<OrderPage> {
+  final OrderTabBloc orderTabBloc = OrderTabBloc();
+  @override
+  void initState() {
+    getTabOrderData();
+    super.initState();
+  }
+
+  Future<void> getTabOrderData() async {
+    orderTabBloc.add(LoadOrderTabEvent());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    orderTabBloc.close();
+  }
 
   @override
   Widget build(BuildContext context) {

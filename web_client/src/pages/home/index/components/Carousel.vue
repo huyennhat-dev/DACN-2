@@ -25,13 +25,23 @@ export default defineComponent({
     const imgs = ref([
       {
         id: 1,
-        url: "https://pethouse.com.vn/wp-content/uploads/2022/07/pethouse-and-husky-dog.jpg",
+        url: "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_1.jpg",
       },
       {
         id: 2,
-        url: "https://pethouse.com.vn/wp-content/uploads/2022/07/pethouse-sai-gon2.jpg",
+        url: "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_2.jpg",
       },
-      
+      {
+        id: 3,
+        url: "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_3.jpg",
+      }, {
+        id: 4,
+        url: "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_4.jpg",
+      }, {
+        id: 5,
+        url: "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_5.jpg",
+      },
+
     ]);
 
     return { imgs };
@@ -42,14 +52,17 @@ export default defineComponent({
 .banner {
   height: 350px;
 }
+
 .banner .banner-img {
   height: 350px;
   object-fit: cover;
 }
+
 @media (max-width: 576px) {
   .banner {
     height: auto;
   }
+
   .banner .banner-img {
     height: 200px !important;
     object-fit: cover;
@@ -60,6 +73,7 @@ export default defineComponent({
 .ant-carousel {
   border-radius: 10px;
 }
+
 .ant-carousel :deep(.slick-slide) {
   text-align: center;
   overflow: hidden;
@@ -76,9 +90,11 @@ export default defineComponent({
   opacity: 0.6;
   z-index: 1;
 }
+
 .ant-carousel :deep(.custom-slick-arrow:before) {
   display: none;
 }
+
 .ant-carousel :deep(.custom-slick-arrow:hover) {
   opacity: 0.9;
   transition: all 0.3s;
@@ -93,6 +109,7 @@ export default defineComponent({
 .ant-carousel :deep(.slick-dots-bottom) {
   bottom: -10px;
 }
+
 .ant-carousel :deep(.slick-dots-bottom li button) {
   border-radius: 2px;
 }

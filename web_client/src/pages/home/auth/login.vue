@@ -5,7 +5,7 @@
         <div class="form-title">
           <h1>Xin chào!</h1>
         </div>
-        <!-- <div class="form-title">Vui lòng điền thông tin đăng nhập</div>
+        <div class="form-title">Vui lòng điền thông tin đăng nhập</div>
         <br />
         <div class="row">
           <div class="col-12">
@@ -61,7 +61,7 @@
               Đăng nhập
             </a-button>
           </div>
-        </div> -->
+        </div>
 
         <!-- <div class="row">
           <div class="col-2 col-sm-3 ps-4">

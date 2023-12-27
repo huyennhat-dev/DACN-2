@@ -8,16 +8,34 @@ class GetRecommendProduct extends HomeListProductEvent {}
 
 class HomeListProductState {
   final List<Product> products;
-  HomeListProductState({required this.products});
+  final bool isLoading;
+
+  HomeListProductState({
+    List<Product>? products,
+    bool? isLoading,
+  })  : products = products ?? [],
+        isLoading = isLoading ?? false;
+
+  HomeListProductState copyWith({
+    List<Product>? products,
+    bool? isLoading,
+  }) {
+    return HomeListProductState(
+      products: products ?? this.products,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
 }
 
 class HomeListProductBloc
     extends Bloc<HomeListProductEvent, HomeListProductState> {
-  HomeListProductBloc() : super(HomeListProductState(products: [])) {
+  HomeListProductBloc() : super(HomeListProductState()) {
     on<GetRecommendProduct>((event, emit) => _getRecommendProduct(emit));
   }
   Future<void> _getRecommendProduct(Emitter<HomeListProductState> emit) async {
     try {
+      emit(HomeListProductState(isLoading: true));
+
       final rs = await HomeRepo.getRecommendProduct();
       final data = rs.data["products"];
 
@@ -38,7 +56,7 @@ class HomeListProductBloc
           "description": item['description']
         });
       }).toList();
-      emit(HomeListProductState(products: products));
+      emit(HomeListProductState(products: products, isLoading: false));
     } catch (e) {
       throw Exception(e);
     }

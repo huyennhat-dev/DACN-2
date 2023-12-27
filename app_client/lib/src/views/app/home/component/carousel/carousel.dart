@@ -8,11 +8,11 @@ import '../../../../constants.dart';
 import 'carousel_bloc.dart';
 
 final List<String> imgList = [
-  "https://bookbuy.vn/Res/Images/Album/5ffae3b1-5676-4ee9-89bf-d2910b21478c.jpg?w=880&scale=both&h=320&mode=crop",
-  "https://bookbuy.vn/Res/Images/Album/616255cf-c6e8-44de-a5aa-be647835b238.jpg?w=880&scale=both&h=320&mode=crop",
-  "https://bookbuy.vn/Res/Images/Album/38149fbe-50de-4ad6-99c8-6fdb31ea0cc7.jpg?w=880&scale=both&h=320&mode=crop",
-  "https://bookbuy.vn/Res/Images/Album/f8179d2f-3703-45dc-a54d-42436435f7d6.jpg?w=880&scale=both&h=320&mode=crop",
-  "https://bookbuy.vn/Res/Images/Album/fc1d2a82-a958-49f9-9a8e-a41c4404bd89.jpg?w=880&scale=both&h=320&mode=crop"
+  "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_1.jpg",
+  "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_2.jpg",
+  "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_3.jpg",
+  "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_4.jpg",
+  "https://raw.githubusercontent.com/huyennhat-dev/DACN-2/main/banner/IMG_5.jpg",
 ];
 
 class AppCarousel extends StatefulWidget {

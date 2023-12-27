@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '/src/views/app/checkout/error.dart';
+import '/src/views/app/checkout/success.dart';
 
 import '../controller/auth.dart';
 import '../model/user.dart';
@@ -55,6 +57,8 @@ class _MyAppState extends State<MyApp> {
     '/product': (context) => const ProductDetail(),
     '/search': (context) => const SearchPage(),
     '/checkout': (context) => const CheckOutPage(),
+    '/checkout-success': (context) => const CheckoutSuccessScreen(),
+    '/checkout-error': (context) => const CheckoutErrorScreen(),
     '/edit-profile': (context) => const EditProfile(),
   };
 

@@ -48,12 +48,16 @@ export const useCartStore = defineStore("cart", {
     },
     async addToCart(product, quantity) {
       try {
+        console.log(this.carts);
         const res = await axios.post(
           `${BASE_URL}/home/cart/create`,
           { id: product._id, quantity },
           { headers: { "x-auth-token": useAuthStore().getToken } }
         );
         if (res.status == 200) {
+          if (this.carts) {
+            this.carts = [];
+          }
           const existingProduct = this.carts.find(
             (item) => item.product._id == product._id
           );

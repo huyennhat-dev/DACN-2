@@ -14,6 +14,11 @@ export default defineComponent({
     this.userLogin()
     this.adminLogin()
   },
+  watch: {
+    '$store.uAuth.user': function (newUser) {
+      console.log('User has changed:', newUser);
+    },
+  },
   methods: {
     async userLogin() {
       try {

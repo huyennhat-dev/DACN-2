@@ -110,27 +110,29 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final response = await CartRepo.fetchCart();
       final cartsData = response.data["carts"];
 
-      final List<Cart> carts = cartsData.map<Cart>((item) {
-        final data = item['product'];
-        final sale = data['sale'].toDouble();
-        final star = data['star'].toDouble();
-        final photos = List<String>.from(
-            data['photos']?.map((photo) => photo.toString()) ?? []);
-        final product = Product(
-            sId: data['_id'],
-            name: data['name'],
-            photos: photos,
-            author: data['author'],
-            price: data['price'],
-            quantity: data['quantity'],
-            purchases: data['purchases'],
-            sale: sale,
-            star: star,
-            description: data['description']);
-        final quantity = item['quantity'];
+      final List<Cart> carts = cartsData != null
+          ? cartsData.map<Cart>((item) {
+              final data = item['product'];
+              final sale = data['sale'].toDouble();
+              final star = data['star'].toDouble();
+              final photos = List<String>.from(
+                  data['photos']?.map((photo) => photo.toString()) ?? []);
+              final product = Product(
+                  sId: data['_id'],
+                  name: data['name'],
+                  photos: photos,
+                  author: data['author'],
+                  price: data['price'],
+                  quantity: data['quantity'],
+                  purchases: data['purchases'],
+                  sale: sale,
+                  star: star,
+                  description: data['description']);
+              final quantity = item['quantity'];
 
-        return Cart(product: product, quantity: quantity);
-      }).toList();
+              return Cart(product: product, quantity: quantity);
+            }).toList()
+          : [];
 
       emit(CartState(carts: carts, totalPrice: _totalPrice(carts)));
     } catch (e) {

@@ -7,7 +7,6 @@ import 'bottom_tab_bloc.dart';
 import 'component/cart_drawer.dart';
 import 'component/menu_drawer.dart';
 import 'home/home.dart';
-import 'notification/notification.dart';
 import 'order/order.dart';
 import 'personal/personal.dart';
 

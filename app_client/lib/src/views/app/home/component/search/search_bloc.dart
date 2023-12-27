@@ -45,7 +45,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   _loadProduct(LoadProduct event, Emitter<SearchState> emit) async {
     try {
       emit(state.copyWith(isLoading: true));
-      final rs = await HomeRepo.seachProduct(event.searchValue, event.page);
+      final rs = await HomeRepo.searchProduct(event.searchValue, event.page);
       final data = rs.data["products"];
 
       final List<Product> products = data.map<Product>((item) {
@@ -75,9 +75,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       emit(state.copyWith(isLoading: true));
 
-      final rs = await HomeRepo.seachProduct(event.searchValue, event.page);
+      final rs = await HomeRepo.searchProduct(event.searchValue, event.page);
       final data = rs.data["products"];
-      print(data);
       data.forEach((item) {
         final sale = item['sale'].toDouble();
         final star = item['star'].toDouble();

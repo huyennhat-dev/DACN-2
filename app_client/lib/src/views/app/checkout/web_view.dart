@@ -11,8 +11,6 @@ class MyWebView extends StatefulWidget {
 }
 
 class _MyWebViewState extends State<MyWebView> {
-  late WebViewController _webViewController;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +18,13 @@ class _MyWebViewState extends State<MyWebView> {
       body: WebView(
         initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          _webViewController = webViewController;
-        },
+        onWebViewCreated: (WebViewController webViewController) {},
         onPageFinished: (String url) {
           if (url.contains("success")) {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/checkout-success');
+          }
+          if (url.contains("checkout/error")) {
+            Navigator.pushNamed(context, '/checkout-error');
           }
         },
       ),

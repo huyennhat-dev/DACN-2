@@ -47,6 +47,7 @@ class OrderTabBloc extends Bloc<OrderTabEvent, OrderTabState> {
 
   _loadData(Emitter<OrderTabState> emit) async {
     try {
+      emit(OrderTabState(orderStatus: [], orders: []));
       final response = await CartRepo.getOrderData();
       final data = response.data;
       final List<OrderStatus> orderStatus =

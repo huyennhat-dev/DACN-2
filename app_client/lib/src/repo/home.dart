@@ -12,7 +12,7 @@ class HomeRepo {
     }
   }
 
-  static seachProduct(searchValue, page) async {
+  static searchProduct(searchValue, page) async {
     final String url =
         '${Configs.baseUrl}/home/product/search/search?key=$searchValue&page=$page';
     try {
